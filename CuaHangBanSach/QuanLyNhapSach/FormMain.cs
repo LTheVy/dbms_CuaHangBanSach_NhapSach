@@ -35,6 +35,8 @@ namespace QuanLyNhapSach
 
             EnableFormMain(false);
             tabControlMain.Visible = false;
+
+            new FormThemDN().ShowDialog();
         }
 
         private void EnableFormMain(bool enable)

@@ -21,7 +21,7 @@ namespace QuanLyNhapSach.Business_Layer
         public DataTable layNhaCungCap(ref string errMessage)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT * FROM NhaCungCap";
+            cmd.CommandText = "SELECT * FROM vw_DanhSachNCC";
             cmd.CommandType = CommandType.Text;
             DataSet ds = db.ExecuteQuery(cmd, ref errMessage);
             if (ds == null) return null;
