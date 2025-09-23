@@ -1,4 +1,7 @@
-﻿--View: Lấy danh sách đơn nhập
+﻿USE CuaHangBanSach
+GO
+
+--View: Lấy danh sách đơn nhập
 GO
 CREATE VIEW vw_DanhSachDonNhap AS
 SELECT
@@ -42,7 +45,7 @@ BEGIN
 	FROM NhaCungCap ncc
 	JOIN ChiTietDonNhap ctdn ON ncc.MaNCC = ctdn.MaNCC
 	JOIN DonNhap dn ON ctdn.MaDN = dn.MaDN
-	WHERE @MaNcc = ncc.MaNCC AND 
+	WHERE @MaNcc = ncc.MaNCC AND dn.TinhTrangNhap = N'Đã nhập'
 
 	RETURN @SoLuong;
 END
