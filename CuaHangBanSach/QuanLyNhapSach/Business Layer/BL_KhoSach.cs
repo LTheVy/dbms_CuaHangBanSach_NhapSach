@@ -27,5 +27,166 @@ namespace QuanLyNhapSach.Business_Layer
             if (ds == null) return null;
             return ds.Tables[0];
         }
+
+        public DataTable LayKhoSachGoc(ref string errMessage)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT * FROM vw_SachGoc";
+            cmd.CommandType = CommandType.Text;
+            DataSet ds = db.ExecuteQuery(cmd, ref errMessage);
+            if (ds == null) return null;
+            return ds.Tables[0];
+        }
+
+        public bool ThemSach(
+            string tenSach,
+            string tacGia,
+            string nhaXuatBan,
+            decimal namXuatBan,
+            string theLoai,
+            string ngonNgu,
+            decimal donGia,
+            decimal soLuongTonKho,
+            string anhBia,
+            DateTime ngayCapNhat,
+            string trangThai,
+            string moTa,
+            ref string errMessage
+            )
+        {
+            // Lỗi thực thi sp trả về false
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "sp_ThemSach";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@TenSach", tenSach);
+            cmd.Parameters.AddWithValue("@TacGia", tacGia);
+            cmd.Parameters.AddWithValue("@NhaXuatBan", nhaXuatBan);
+            cmd.Parameters.AddWithValue("@NamXuatBan", (int)namXuatBan);
+            cmd.Parameters.AddWithValue("@TheLoai", theLoai);
+            cmd.Parameters.AddWithValue("@NgonNgu", ngonNgu);
+            cmd.Parameters.AddWithValue("@DonGia", donGia);
+            cmd.Parameters.AddWithValue("@SLTonKho", (int)soLuongTonKho);
+            cmd.Parameters.AddWithValue("@AnhBia", anhBia);
+            cmd.Parameters.AddWithValue("@NgayCapNhat", ngayCapNhat);
+            cmd.Parameters.AddWithValue("@TrangThai", trangThai);
+            cmd.Parameters.AddWithValue("@MoTa", moTa);
+
+            // OUTPUT
+            SqlParameter errorParam = new SqlParameter("@ErrorMessage", SqlDbType.NVarChar, 500)
+            {
+                Direction = ParameterDirection.Output
+            };
+            cmd.Parameters.Add(errorParam);
+
+            // RETURN
+            SqlParameter returnParam = new SqlParameter
+            {
+                Direction = ParameterDirection.ReturnValue
+            };
+            cmd.Parameters.Add(returnParam);
+
+            if (!db.MyExecuteNonQuery(cmd, ref errMessage))
+            {
+                return false;
+            }
+
+            errMessage = (string)errorParam.Value;
+            int returnValue = (int)returnParam.Value;
+            return returnValue != 0;
+        }
+
+        public bool SuaSach(
+            string maSach,
+            string tenSach,
+            string tacGia,
+            string nhaXuatBan,
+            decimal namXuatBan,
+            string theLoai,
+            string ngonNgu,
+            decimal donGia,
+            decimal soLuongTonKho,
+            string anhBia,
+            DateTime ngayCapNhat,
+            string trangThai,
+            string moTa,
+            ref string errMessage
+            )
+        {
+            // Lỗi thực thi sp trả về false
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "sp_SuaSach";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@MaSach", maSach);
+            cmd.Parameters.AddWithValue("@TenSach", tenSach);
+            cmd.Parameters.AddWithValue("@TacGia", tacGia);
+            cmd.Parameters.AddWithValue("@NhaXuatBan", nhaXuatBan);
+            cmd.Parameters.AddWithValue("@NamXuatBan", (int)namXuatBan);
+            cmd.Parameters.AddWithValue("@TheLoai", theLoai);
+            cmd.Parameters.AddWithValue("@NgonNgu", ngonNgu);
+            cmd.Parameters.AddWithValue("@DonGia", donGia);
+            cmd.Parameters.AddWithValue("@SLTonKho", (int)soLuongTonKho);
+            cmd.Parameters.AddWithValue("@AnhBia", anhBia);
+            cmd.Parameters.AddWithValue("@NgayCapNhat", ngayCapNhat);
+            cmd.Parameters.AddWithValue("@TrangThai", trangThai);
+            cmd.Parameters.AddWithValue("@MoTa", moTa);
+            // OUTPUT
+            SqlParameter errorParam = new SqlParameter("@ErrorMessage", SqlDbType.NVarChar, 500)
+            {
+                Direction = ParameterDirection.Output
+            };
+            cmd.Parameters.Add(errorParam);
+
+            // RETURN
+            SqlParameter returnParam = new SqlParameter
+            {
+                Direction = ParameterDirection.ReturnValue
+            };
+
+            cmd.Parameters.Add(returnParam);
+            if (!db.MyExecuteNonQuery(cmd, ref errMessage))
+            {
+                return false;
+            }
+
+            errMessage = (string)errorParam.Value;
+            int returnValue = (int)returnParam.Value;
+            return returnValue != 0;
+        }
+
+        public bool XoaSach(int maSach, ref string errMessage)
+        {
+            // Lỗi thực thi sp trả về false
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "sp_XoaSach";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@MaSach", maSach);
+
+            // OUTPUT
+            SqlParameter errorParam = new SqlParameter("@ErrorMessage", SqlDbType.NVarChar, 500)
+            {
+                Direction = ParameterDirection.Output
+            };
+            cmd.Parameters.Add(errorParam);
+
+            // RETURN
+            SqlParameter returnParam = new SqlParameter
+            {
+                Direction = ParameterDirection.ReturnValue
+            };
+            cmd.Parameters.Add(returnParam);
+
+            if (!db.MyExecuteNonQuery(cmd, ref errMessage))
+            {
+                return false;
+            }
+
+            errMessage = (string)errorParam.Value;
+
+            int returnValue = (int)returnParam.Value;
+            return returnValue != 0;
+        }
     }
 }

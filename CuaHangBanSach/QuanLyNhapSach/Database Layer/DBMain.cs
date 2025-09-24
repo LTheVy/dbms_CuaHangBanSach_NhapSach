@@ -19,29 +19,54 @@ namespace QuanLyNhapSach.Database_Layer
             conn = new SqlConnection(ConnString);
         }
 
-            public DataSet ExecuteQuery(SqlCommand cmd, ref string errMessage)
+        public DataSet ExecuteQuery(SqlCommand cmd, ref string errMessage)
+        {
+            DataSet ds = new DataSet();
+            try
             {
-                DataSet ds = new DataSet();
-                try
+                if (conn.State == ConnectionState.Closed)
                 {
-                    if (conn.State == ConnectionState.Closed)
-                    {
-                        conn.Open();
-                    }
-                    cmd.Connection = conn;
-                    da = new SqlDataAdapter(cmd);
-                    da.Fill(ds);
+                    conn.Open();
                 }
-                catch (SqlException ex)
-                {
-                    errMessage = ex.Message;
-                    ds = null;
-                }
-                finally
-                {
-                    conn.Close();
-                }
-                return ds;
+                cmd.Connection = conn;
+                da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
             }
+            catch (SqlException ex)
+            {
+                errMessage = ex.Message;
+                ds = null;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return ds;
+        }
+
+        public bool MyExecuteNonQuery(SqlCommand cmd, ref string errMessage)
+        {
+            // Có lỗi kết nối mới trả về false
+            bool result = true;
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+                cmd.Connection = conn;
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                errMessage = ex.Message;
+                result = false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
+        }
     }
 }

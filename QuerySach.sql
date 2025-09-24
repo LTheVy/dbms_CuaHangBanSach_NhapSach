@@ -7,7 +7,7 @@ GO
 
 --Function: Lấy thông tin một đơn nhập
 GO
-CREATE OR ALTER FUNCTION fn_ThongTinDonNhap(@MaDN INT)
+CREATE OR ALTER FUNCTION fn_DonNhapXemChiTiet(@MaDN INT)
 RETURNS TABLE
 AS
 RETURN
@@ -81,13 +81,16 @@ BEGIN
 END;
 
 
+--Function: Lấy danh sách các sách của một nhà cung cấp
+GO
+--CREATE VIEW vw_SachNCC
 ------------------------------------------------------
 -- VIEWS
 ------------------------------------------------------
 
 --View: Lấy danh sách đơn nhập
 GO
-CREATE OR ALTER VIEW vw_DanhSachDonNhap AS
+CREATE OR ALTER VIEW vw_DonNhapDanhSach AS
 SELECT
 	dn.MaDN,
 	dn.NgayLapDN,
@@ -100,10 +103,15 @@ SELECT
 FROM DonNhap dn
 JOIN NguoiDung nd ON dn.MaNguoiDung = nd.MaNguoiDung;
 
-
---View: Lấy danh sách nhà cung cấp (bao gồm tổng số sách, tổng tiền 2 cái)
+--View: Lấy danh sách đơn nhập gốc
 GO
-CREATE OR ALTER VIEW vw_DanhSachNCC AS
+CREATE OR ALTER VIEW vw_DonNhapGoc AS
+SELECT * FROM DonNhap
+
+
+--View: Lấy danh sách nhà cung cấp
+GO
+CREATE OR ALTER VIEW vw_NhaCungCapDanhSach AS
 SELECT
 	MaNCC,
 	TenNCC,
@@ -115,16 +123,33 @@ SELECT
 	dbo.fn_TongTienNhapNCC(MaNCC) AS TongTienNhap
 FROM NhaCungCap ncc;
 
-
---View: Lấy danh sách các sách của một nhà cung cấp
+--View: Lấy danh sách nhà cung cấp gốc
 GO
---CREATE VIEW vw_SachNCC
+CREATE OR ALTER VIEW vw_NhaCungCapGoc AS
+SELECT * FROM NhaCungCap
 
 
---View: Lấy danh sách kho sách cho nhập sách
+--View: Lấy danh sách kho sách
 GO
-CREATE OR ALTER VIEW vw_KhoSachNhap AS
-SELECT MaSach, TenSach, TacGia, AnhBia, DonGia, SLTonKho as SoLuong, NgayCapNhat, TrangThai
-FROM Sach;
+CREATE VIEW vw_DanhSachSach AS
+SELECT 
+    s.MaSach,
+    s.TenSach,
+    s.TacGia,
+    s.TheLoai,
+    s.DonGia,
+    s.SLTonKho,
+    s.SLTonKho * s.DonGia AS GiaTriTonKho,
+    CASE
+        WHEN s.SLTonKho <= 5 THEN N'Cần nhập'
+        WHEN s.SLTonKho <= 20 THEN N'Sắp hết'
+        ELSE N'Đủ hàng'
+    END AS TinhTrangKho,
+    s.NgayCapNhat
+FROM Sach s
 
+--View: Lấy danh sách kho sách gốc
+GO
+CREATE OR ALTER VIEW vw_SachGoc AS
+SELECT * FROM Sach
 

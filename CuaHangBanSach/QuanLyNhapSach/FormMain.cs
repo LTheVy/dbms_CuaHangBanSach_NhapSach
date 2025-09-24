@@ -36,7 +36,10 @@ namespace QuanLyNhapSach
             EnableFormMain(false);
             tabControlMain.Visible = false;
 
-            new FormThemDN().ShowDialog();
+            //new FormThemDN().ShowDialog();
+
+            loginToolStripMenuItem_Click(sender, e);
+            buttonSachChinhSua_Click(sender, e);
         }
 
         private void EnableFormMain(bool enable)
@@ -137,6 +140,18 @@ namespace QuanLyNhapSach
         private void dataGridViewNhaCungCap_VisibleChanged(object sender, EventArgs e)
         {
             if (isLogin) loadNhaCungCap();
+        }
+
+        private void buttonSachChinhSua_Click(object sender, EventArgs e)
+        {
+            FormSach formSach = new FormSach();
+            formSach.Show();
+            loadKhoSach();
+        }
+
+        private void buttonSachTaiLai_Click(object sender, EventArgs e)
+        {
+            loadKhoSach();
         }
     }
 }

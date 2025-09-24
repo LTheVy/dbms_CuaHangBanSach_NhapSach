@@ -51,11 +51,11 @@
     <Compile Include="Business Layer\BL_KhoSach.cs" />
     <Compile Include="Business Layer\BL_NhaCungCap.cs" />
     <Compile Include="Database Layer\DBMain.cs" />
-    <Compile Include="FormChonSach.cs">
+    <Compile Include="FormChon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormChonSach.Designer.cs">
-      <DependentUpon>FormChonSach.cs</DependentUpon>
+    <Compile Include="FormChon.Designer.cs">
+      <DependentUpon>FormChon.cs</DependentUpon>
     </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
@@ -68,6 +68,12 @@
     </Compile>
     <Compile Include="FormDangNhap.Designer.cs">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSach.Designer.cs">
+      <DependentUpon>FormSach.cs</DependentUpon>
     </Compile>
     <Compile Include="FormThemDN.cs">
       <SubType>Form</SubType>
@@ -82,6 +88,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDangNhap.resx">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSach.resx">
+      <DependentUpon>FormSach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormThemDN.resx">
       <DependentUpon>FormThemDN.cs</DependentUpon>

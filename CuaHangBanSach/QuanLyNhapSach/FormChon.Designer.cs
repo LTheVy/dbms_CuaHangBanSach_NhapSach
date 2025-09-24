@@ -1,6 +1,6 @@
 ﻿namespace QuanLyNhapSach
 {
-    partial class FormChonSach
+    partial class FormChon
     {
         /// <summary>
         /// Required designer variable.

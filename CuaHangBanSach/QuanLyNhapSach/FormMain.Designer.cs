@@ -36,20 +36,23 @@
             this.labelMaSo = new System.Windows.Forms.Label();
             this.labelVaiTro = new System.Windows.Forms.Label();
             this.tabControlMain = new System.Windows.Forms.TabControl();
-            this.tabDonNhap = new System.Windows.Forms.TabPage();
-            this.dataGridViewDonNhap = new System.Windows.Forms.DataGridView();
             this.tabKhoSach = new System.Windows.Forms.TabPage();
+            this.buttonSachTaiLai = new System.Windows.Forms.Button();
+            this.buttonSachXemChiTiet = new System.Windows.Forms.Button();
+            this.buttonSachChinhSua = new System.Windows.Forms.Button();
             this.dataGridViewKhoSach = new System.Windows.Forms.DataGridView();
             this.tabNhaCungCap = new System.Windows.Forms.TabPage();
             this.dataGridViewNhaCungCap = new System.Windows.Forms.DataGridView();
+            this.tabDonNhap = new System.Windows.Forms.TabPage();
+            this.dataGridViewDonNhap = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
-            this.tabDonNhap.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDonNhap)).BeginInit();
             this.tabKhoSach.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKhoSach)).BeginInit();
             this.tabNhaCungCap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNhaCungCap)).BeginInit();
+            this.tabDonNhap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDonNhap)).BeginInit();
             this.SuspendLayout();
             // 
             // labelTen
@@ -131,33 +134,11 @@
             this.tabControlMain.Size = new System.Drawing.Size(922, 465);
             this.tabControlMain.TabIndex = 4;
             // 
-            // tabDonNhap
-            // 
-            this.tabDonNhap.Controls.Add(this.dataGridViewDonNhap);
-            this.tabDonNhap.Location = new System.Drawing.Point(4, 25);
-            this.tabDonNhap.Name = "tabDonNhap";
-            this.tabDonNhap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDonNhap.Size = new System.Drawing.Size(914, 436);
-            this.tabDonNhap.TabIndex = 0;
-            this.tabDonNhap.Text = "Đơn nhập sách";
-            this.tabDonNhap.UseVisualStyleBackColor = true;
-            // 
-            // dataGridViewDonNhap
-            // 
-            this.dataGridViewDonNhap.AllowUserToOrderColumns = true;
-            this.dataGridViewDonNhap.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewDonNhap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDonNhap.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewDonNhap.Name = "dataGridViewDonNhap";
-            this.dataGridViewDonNhap.ReadOnly = true;
-            this.dataGridViewDonNhap.RowHeadersWidth = 51;
-            this.dataGridViewDonNhap.RowTemplate.Height = 24;
-            this.dataGridViewDonNhap.Size = new System.Drawing.Size(902, 381);
-            this.dataGridViewDonNhap.TabIndex = 0;
-            this.dataGridViewDonNhap.VisibleChanged += new System.EventHandler(this.dataGridViewDonNhap_VisibleChanged);
-            // 
             // tabKhoSach
             // 
+            this.tabKhoSach.Controls.Add(this.buttonSachTaiLai);
+            this.tabKhoSach.Controls.Add(this.buttonSachXemChiTiet);
+            this.tabKhoSach.Controls.Add(this.buttonSachChinhSua);
             this.tabKhoSach.Controls.Add(this.dataGridViewKhoSach);
             this.tabKhoSach.Location = new System.Drawing.Point(4, 25);
             this.tabKhoSach.Name = "tabKhoSach";
@@ -166,6 +147,35 @@
             this.tabKhoSach.TabIndex = 1;
             this.tabKhoSach.Text = "Kho sách";
             this.tabKhoSach.UseVisualStyleBackColor = true;
+            // 
+            // buttonSachTaiLai
+            // 
+            this.buttonSachTaiLai.Location = new System.Drawing.Point(815, 390);
+            this.buttonSachTaiLai.Name = "buttonSachTaiLai";
+            this.buttonSachTaiLai.Size = new System.Drawing.Size(93, 40);
+            this.buttonSachTaiLai.TabIndex = 4;
+            this.buttonSachTaiLai.Text = "Tải lại";
+            this.buttonSachTaiLai.UseVisualStyleBackColor = true;
+            this.buttonSachTaiLai.Click += new System.EventHandler(this.buttonSachTaiLai_Click);
+            // 
+            // buttonSachXemChiTiet
+            // 
+            this.buttonSachXemChiTiet.Location = new System.Drawing.Point(125, 393);
+            this.buttonSachXemChiTiet.Name = "buttonSachXemChiTiet";
+            this.buttonSachXemChiTiet.Size = new System.Drawing.Size(93, 40);
+            this.buttonSachXemChiTiet.TabIndex = 3;
+            this.buttonSachXemChiTiet.Text = "Xem chi tiết";
+            this.buttonSachXemChiTiet.UseVisualStyleBackColor = true;
+            // 
+            // buttonSachChinhSua
+            // 
+            this.buttonSachChinhSua.Location = new System.Drawing.Point(6, 393);
+            this.buttonSachChinhSua.Name = "buttonSachChinhSua";
+            this.buttonSachChinhSua.Size = new System.Drawing.Size(93, 40);
+            this.buttonSachChinhSua.TabIndex = 2;
+            this.buttonSachChinhSua.Text = "Chỉnh sửa";
+            this.buttonSachChinhSua.UseVisualStyleBackColor = true;
+            this.buttonSachChinhSua.Click += new System.EventHandler(this.buttonSachChinhSua_Click);
             // 
             // dataGridViewKhoSach
             // 
@@ -205,6 +215,31 @@
             this.dataGridViewNhaCungCap.TabIndex = 2;
             this.dataGridViewNhaCungCap.VisibleChanged += new System.EventHandler(this.dataGridViewNhaCungCap_VisibleChanged);
             // 
+            // tabDonNhap
+            // 
+            this.tabDonNhap.Controls.Add(this.dataGridViewDonNhap);
+            this.tabDonNhap.Location = new System.Drawing.Point(4, 25);
+            this.tabDonNhap.Name = "tabDonNhap";
+            this.tabDonNhap.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDonNhap.Size = new System.Drawing.Size(914, 436);
+            this.tabDonNhap.TabIndex = 0;
+            this.tabDonNhap.Text = "Đơn nhập sách";
+            this.tabDonNhap.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewDonNhap
+            // 
+            this.dataGridViewDonNhap.AllowUserToOrderColumns = true;
+            this.dataGridViewDonNhap.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewDonNhap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewDonNhap.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewDonNhap.Name = "dataGridViewDonNhap";
+            this.dataGridViewDonNhap.ReadOnly = true;
+            this.dataGridViewDonNhap.RowHeadersWidth = 51;
+            this.dataGridViewDonNhap.RowTemplate.Height = 24;
+            this.dataGridViewDonNhap.Size = new System.Drawing.Size(902, 381);
+            this.dataGridViewDonNhap.TabIndex = 0;
+            this.dataGridViewDonNhap.VisibleChanged += new System.EventHandler(this.dataGridViewDonNhap_VisibleChanged);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -222,12 +257,12 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
-            this.tabDonNhap.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDonNhap)).EndInit();
             this.tabKhoSach.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKhoSach)).EndInit();
             this.tabNhaCungCap.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNhaCungCap)).EndInit();
+            this.tabDonNhap.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDonNhap)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,6 +284,9 @@
         private System.Windows.Forms.DataGridView dataGridViewDonNhap;
         private System.Windows.Forms.DataGridView dataGridViewKhoSach;
         private System.Windows.Forms.DataGridView dataGridViewNhaCungCap;
+        private System.Windows.Forms.Button buttonSachXemChiTiet;
+        private System.Windows.Forms.Button buttonSachChinhSua;
+        private System.Windows.Forms.Button buttonSachTaiLai;
     }
 }
 

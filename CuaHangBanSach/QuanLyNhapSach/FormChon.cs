@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace QuanLyNhapSach
 {
-    public partial class FormChonSach : Form
+    public partial class FormChon : Form
     {
-        public FormChonSach()
+        public FormChon()
         {
             InitializeComponent();
         }
