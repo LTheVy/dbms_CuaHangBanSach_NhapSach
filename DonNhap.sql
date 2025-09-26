@@ -60,9 +60,124 @@ JOIN NguoiDung nd ON dn.MaNguoiDung = nd.MaNguoiDung;
 
 --View: Lấy danh sách đơn nhập gốc
 GO
-CREATE OR ALTER VIEW vw_DonNhapGoc AS
+CREATE OR ALTER VIEW vw_DanhSachDonNhapGoc AS
 SELECT * FROM DonNhap
 
 
+--Procedure: Thêm đơn nhập
+GO
+CREATE PROCEDURE sp_ThemDonNhap
+    @NgayLapDN DATE = NULL,
+    @TongTien DECIMAL(18,2) = 0,
+    @TinhTrangNhap NVARCHAR(50) = NULL,
+    @MaNguoiDung INT,
+    @GhiChu NVARCHAR(500),
+    @ErrorMessage NVARCHAR(500) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        INSERT INTO DonNhap (
+            NgayLapDN,
+            TongTien,
+            TinhTrangNhap,
+            MaNguoiDung,
+            GhiChu
+        )
+        VALUES (
+            COALESCE(@NgayLapDN, CAST(GETDATE() AS DATE)),
+            @TongTien,
+            COALESCE(@TinhTrangNhap, N'Chờ duyệt'),
+            @MaNguoiDung,
+            @GhiChu
+        );
+
+        SET @ErrorMessage = N'';
+        RETURN 1;
+    END TRY
+    BEGIN CATCH
+        SET @ErrorMessage = ERROR_MESSAGE();
+        RETURN 0;
+    END CATCH
+END
+
+
+--Procedure: Sửa đơn nhập
+GO
+CREATE PROCEDURE sp_SuaDonNhap
+    @MaDN INT,
+    @NgayLapDN DATE = NULL,
+    @TongTien DECIMAL(18,2) = 0,
+    @TinhTrangNhap NVARCHAR(50) = NULL,
+    @MaNguoiDung INT,
+    @GhiChu NVARCHAR(500),
+    @ErrorMessage NVARCHAR(500) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Kiểm tra MaDN tồn tại
+    IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
+    BEGIN
+        SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
+        RETURN 0;
+    END
+
+    -- Kiểm tra MaNguoiDung tồn tại
+    IF NOT EXISTS (SELECT 1 FROM NguoiDung WHERE MaNguoiDung = @MaNguoiDung)
+    BEGIN
+        SET @ErrorMessage = N'Mã người dùng không tồn tại.';
+        RETURN 0;
+    END
+
+    BEGIN TRY
+        UPDATE DonNhap
+        SET
+            NgayLapDN = COALESCE(@NgayLapDN, CAST(GETDATE() AS DATE)),
+            TongTien = @TongTien,
+            TinhTrangNhap = COALESCE(@TinhTrangNhap, N'Chờ duyệt'),
+            MaNguoiDung = @MaNguoiDung,
+            GhiChu = @GhiChu
+        WHERE MaDN = @MaDN;
+
+        SET @ErrorMessage = N'';
+        RETURN 1;
+    END TRY
+    BEGIN CATCH
+        SET @ErrorMessage = ERROR_MESSAGE();
+        RETURN 0;
+    END CATCH
+END
+
+
+--Procedure: Xóa đơn nhập
+GO
+CREATE PROCEDURE sp_XoaDonNhap
+    @MaDN INT,
+    @ErrorMessage NVARCHAR(500) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Kiểm tra MaDN tồn tại
+    IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
+    BEGIN
+        SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
+        RETURN 0;
+    END
+
+    BEGIN TRY
+        DELETE FROM DonNhap
+        WHERE MaDN = @MaDN;
+
+        SET @ErrorMessage = N'';
+        RETURN 1;
+    END TRY
+    BEGIN CATCH
+        SET @ErrorMessage = ERROR_MESSAGE();
+        RETURN 0;
+    END CATCH
+END
 
 --ALTER TABLE DonNhap ADD CONSTRAINT CK_DonNhap_TinhTrangNhap CHECK (TinhTrangNhap IN (N'Đã nhập', N'Chưa nhập', N'Hủy đơn'))

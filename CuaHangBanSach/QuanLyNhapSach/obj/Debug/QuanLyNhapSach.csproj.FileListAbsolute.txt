@@ -25,3 +25,4 @@ D:\Chuong_trinh_hoc\HQT_CSDL\_NhapSach\CuaHangBanSach\QuanLyNhapSach\obj\Debug\Q
 D:\Chuong_trinh_hoc\HQT_CSDL\_NhapSach\CuaHangBanSach\QuanLyNhapSach\obj\Debug\QuanLyNhapSach.FormThemDN.resources
 D:\Chuong_trinh_hoc\HQT_CSDL\_NhapSach\CuaHangBanSach\QuanLyNhapSach\obj\Debug\QuanLyNhapSach.FormSach.resources
 D:\Chuong_trinh_hoc\HQT_CSDL\_NhapSach\CuaHangBanSach\QuanLyNhapSach\obj\Debug\QuanLyNhapSach.FormNhaCungCap.resources
+D:\Chuong_trinh_hoc\HQT_CSDL\_NhapSach\CuaHangBanSach\QuanLyNhapSach\obj\Debug\QuanLyNhapSach.FormDonNhap.resources

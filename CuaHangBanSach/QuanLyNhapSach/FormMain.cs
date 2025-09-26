@@ -145,7 +145,7 @@ namespace QuanLyNhapSach
             loadKhoSach();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void buttonNCCChinhSua_Click(object sender, EventArgs e)
         {
             FormNhaCungCap formNhaCungCap = new FormNhaCungCap();
             formNhaCungCap.Show();
@@ -155,6 +155,18 @@ namespace QuanLyNhapSach
         private void buttonNCCTaiLai_Click(object sender, EventArgs e)
         {
             loadNhaCungCap();
+        }
+
+        private void buttonDNChinhSua_Click(object sender, EventArgs e)
+        {
+            FormDonNhap formDonNhap = new FormDonNhap();
+            formDonNhap.Show();
+            loadDonNhap();
+        }
+
+        private void buttonDNTaiLai_Click(object sender, EventArgs e)
+        {
+            loadDonNhap();
         }
     }
 }

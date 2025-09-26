@@ -98,7 +98,7 @@ namespace QuanLyNhapSach.Business_Layer
 
             if (!int.TryParse(maNCC, out int maNCCInt))
             {
-                errMessage = "Mã sách không hợp lệ.";
+                errMessage = "Mã nhà cung cấp không hợp lệ.";
                 return false;
             }
             cmd.Parameters.AddWithValue("@MaNCC", maNCCInt);
@@ -140,7 +140,7 @@ namespace QuanLyNhapSach.Business_Layer
 
             if (!int.TryParse(maNCC, out int maNCCInt))
             {
-                errMessage = "Mã sách không hợp lệ.";
+                errMessage = "Mã nhà cung cấp không hợp lệ.";
                 return false;
             }
             cmd.Parameters.AddWithValue("@MaNCC", maNCCInt);
