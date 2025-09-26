@@ -45,7 +45,7 @@ END;
 
 --View: Lấy danh sách đơn nhập
 GO
-CREATE OR ALTER VIEW vw_DonNhapDanhSach AS
+CREATE OR ALTER VIEW vw_DanhSachDonNhap AS
 SELECT
 	dn.MaDN,
 	dn.NgayLapDN,

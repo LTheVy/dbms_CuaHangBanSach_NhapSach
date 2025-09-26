@@ -1,7 +1,6 @@
 ﻿USE CuaHangBanSach
 GO
 
-
 --Function: Tính tổng số sách đã nhập của một nhà cung cấp
 GO
 CREATE OR ALTER FUNCTION fn_TongSachNCC(@MaNCC INT)
@@ -60,7 +59,7 @@ SELECT * FROM NhaCungCap
 
 --Procedure: Thêm nhà cung cấp
 GO
-CREATE OR ALTER PROCEDURE sp_ThemNhaCungCap
+CREATE PROCEDURE sp_ThemNhaCungCap
     @TenNCC NVARCHAR(100),
     @DienThoai VARCHAR(15),
     @DiaChi NVARCHAR(200),
@@ -99,7 +98,7 @@ END
 
 --Procedure: Sửa nhà cung cấp
 GO
-CREATE OR ALTER PROCEDURE sp_SuaNhaCungCap
+CREATE PROCEDURE sp_SuaNhaCungCap
     @MaNCC INT,
     @TenNCC NVARCHAR(100),
     @DienThoai VARCHAR(15),
@@ -140,7 +139,7 @@ END
 
 --Procedure: Xóa nhà cung cấp
 GO
-CREATE OR ALTER PROCEDURE sp_XoaNhaCungCap
+CREATE PROCEDURE sp_XoaNhaCungCap
     @MaNCC INT,
     @ErrorMessage NVARCHAR(500) OUTPUT
 AS
