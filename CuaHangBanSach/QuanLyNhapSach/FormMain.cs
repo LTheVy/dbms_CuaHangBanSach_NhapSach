@@ -13,10 +13,6 @@ namespace QuanLyNhapSach
 {
     public partial class FormMain : Form
     {
-        BL_DonNhap bL_DonNhap;
-        BL_KhoSach bL_KhoSach;
-        BL_NhaCungCap bL_NhaCungCap;
-
         public static int id = -1;
         public static string name = "";
         public static string role = "";
@@ -29,17 +25,12 @@ namespace QuanLyNhapSach
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            bL_DonNhap = new BL_DonNhap();
-            bL_KhoSach = new BL_KhoSach();
-            bL_NhaCungCap = new BL_NhaCungCap();
-
             EnableFormMain(false);
             tabControlMain.Visible = false;
 
             //new FormThemDN().ShowDialog();
 
             loginToolStripMenuItem_Click(sender, e);
-            buttonSachChinhSua_Click(sender, e);
         }
 
         private void EnableFormMain(bool enable)
@@ -93,7 +84,7 @@ namespace QuanLyNhapSach
 
         private void loadDonNhap()
         {
-            DataTable dt = bL_DonNhap.LayDonNhap(ref errMessage);
+            DataTable dt = new BL_DonNhap().LayDonNhap(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
@@ -105,7 +96,7 @@ namespace QuanLyNhapSach
 
         private void loadKhoSach()
         {
-            DataTable dt = bL_KhoSach.LayKhoSach(ref errMessage);
+            DataTable dt = new BL_Sach().layKhoSach(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
@@ -117,7 +108,7 @@ namespace QuanLyNhapSach
 
         private void loadNhaCungCap()
         {
-            DataTable dt = bL_NhaCungCap.layNhaCungCap(ref errMessage);
+            DataTable dt = new BL_NhaCungCap().layNhaCungCap(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
@@ -152,6 +143,18 @@ namespace QuanLyNhapSach
         private void buttonSachTaiLai_Click(object sender, EventArgs e)
         {
             loadKhoSach();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FormNhaCungCap formNhaCungCap = new FormNhaCungCap();
+            formNhaCungCap.Show();
+            loadNhaCungCap();
+        }
+
+        private void buttonNCCTaiLai_Click(object sender, EventArgs e)
+        {
+            loadNhaCungCap();
         }
     }
 }

@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Business Layer\BL_DangNhap.cs" />
     <Compile Include="Business Layer\BL_DonNhap.cs" />
-    <Compile Include="Business Layer\BL_KhoSach.cs" />
+    <Compile Include="Business Layer\BL_Sach.cs" />
     <Compile Include="Business Layer\BL_NhaCungCap.cs" />
     <Compile Include="Database Layer\DBMain.cs" />
     <Compile Include="FormChon.cs">
@@ -69,6 +69,12 @@
     <Compile Include="FormDangNhap.Designer.cs">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormNhaCungCap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNhaCungCap.Designer.cs">
+      <DependentUpon>FormNhaCungCap.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSach.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDangNhap.resx">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNhaCungCap.resx">
+      <DependentUpon>FormNhaCungCap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSach.resx">
       <DependentUpon>FormSach.cs</DependentUpon>

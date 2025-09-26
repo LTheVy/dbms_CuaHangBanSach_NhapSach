@@ -6,39 +6,40 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace QuanLyNhapSach.Business_Layer
 {
-    internal class BL_KhoSach
+    internal class BL_Sach
     {
         DBMain db = null;
 
-        public BL_KhoSach()
+        public BL_Sach()
         {
             db = new DBMain();
         }
 
-        public DataTable LayKhoSach(ref string errMessage)
+        public DataTable layKhoSach(ref string errMessage)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT * FROM vw_BaoCaoTonKho";
+            cmd.CommandText = "SELECT * FROM vw_DanhSachSach";
             cmd.CommandType = CommandType.Text;
             DataSet ds = db.ExecuteQuery(cmd, ref errMessage);
             if (ds == null) return null;
             return ds.Tables[0];
         }
 
-        public DataTable LayKhoSachGoc(ref string errMessage)
+        public DataTable layKhoSachGoc(ref string errMessage)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT * FROM vw_SachGoc";
+            cmd.CommandText = "SELECT * FROM vw_DanhSachSachGoc";
             cmd.CommandType = CommandType.Text;
             DataSet ds = db.ExecuteQuery(cmd, ref errMessage);
             if (ds == null) return null;
             return ds.Tables[0];
         }
 
-        public bool ThemSach(
+        public bool themSach(
             string tenSach,
             string tacGia,
             string nhaXuatBan,
@@ -96,7 +97,7 @@ namespace QuanLyNhapSach.Business_Layer
             return returnValue != 0;
         }
 
-        public bool SuaSach(
+        public bool suaSach(
             string maSach,
             string tenSach,
             string tacGia,
@@ -113,11 +114,15 @@ namespace QuanLyNhapSach.Business_Layer
             ref string errMessage
             )
         {
-            // Lỗi thực thi sp trả về false
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "sp_SuaSach";
             cmd.CommandType = CommandType.StoredProcedure;
 
+            if (!int.TryParse(maSach, out int maSachInt))
+            {
+                errMessage = "Mã sách không hợp lệ.";
+                return false;
+            }
             cmd.Parameters.AddWithValue("@MaSach", maSach);
             cmd.Parameters.AddWithValue("@TenSach", tenSach);
             cmd.Parameters.AddWithValue("@TacGia", tacGia);
@@ -155,14 +160,18 @@ namespace QuanLyNhapSach.Business_Layer
             return returnValue != 0;
         }
 
-        public bool XoaSach(int maSach, ref string errMessage)
+        public bool xoaSach(string maSach, ref string errMessage)
         {
-            // Lỗi thực thi sp trả về false
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "sp_XoaSach";
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@MaSach", maSach);
+            if (!int.TryParse(maSach, out int maSachInt))
+            {
+                errMessage = "Mã sách không hợp lệ.";
+                return false;
+            }
+            cmd.Parameters.AddWithValue("@MaSach", maSachInt);
 
             // OUTPUT
             SqlParameter errorParam = new SqlParameter("@ErrorMessage", SqlDbType.NVarChar, 500)

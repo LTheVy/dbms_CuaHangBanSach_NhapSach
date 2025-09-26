@@ -84,7 +84,8 @@
             // 
             this.dataGridViewMain.AllowUserToAddRows = false;
             this.dataGridViewMain.AllowUserToDeleteRows = false;
-            this.dataGridViewMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridViewMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMain.Location = new System.Drawing.Point(12, 221);
@@ -98,6 +99,7 @@
             // 
             // buttonThem
             // 
+            this.buttonThem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.buttonThem.Location = new System.Drawing.Point(12, 563);
             this.buttonThem.Name = "buttonThem";
@@ -109,6 +111,7 @@
             // 
             // buttonSua
             // 
+            this.buttonSua.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.buttonSua.Location = new System.Drawing.Point(162, 563);
             this.buttonSua.Name = "buttonSua";
@@ -120,6 +123,7 @@
             // 
             // buttonXoa
             // 
+            this.buttonXoa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.buttonXoa.Location = new System.Drawing.Point(306, 563);
             this.buttonXoa.Name = "buttonXoa";
@@ -131,6 +135,7 @@
             // 
             // buttonTaiLai
             // 
+            this.buttonTaiLai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonTaiLai.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.buttonTaiLai.Location = new System.Drawing.Point(695, 563);
             this.buttonTaiLai.Name = "buttonTaiLai";
@@ -142,6 +147,7 @@
             // 
             // buttonThoat
             // 
+            this.buttonThoat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonThoat.BackColor = System.Drawing.Color.Gray;
             this.buttonThoat.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonThoat.Location = new System.Drawing.Point(840, 563);
@@ -154,6 +160,7 @@
             // 
             // labelAnhBia
             // 
+            this.labelAnhBia.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelAnhBia.AutoSize = true;
             this.labelAnhBia.Location = new System.Drawing.Point(305, 97);
             this.labelAnhBia.Name = "labelAnhBia";
@@ -163,6 +170,7 @@
             // 
             // labelSLTonKho
             // 
+            this.labelSLTonKho.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelSLTonKho.AutoSize = true;
             this.labelSLTonKho.Location = new System.Drawing.Point(251, 65);
             this.labelSLTonKho.Name = "labelSLTonKho";
@@ -172,6 +180,7 @@
             // 
             // textBoxAnhBia
             // 
+            this.textBoxAnhBia.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxAnhBia.Location = new System.Drawing.Point(366, 94);
             this.textBoxAnhBia.Name = "textBoxAnhBia";
             this.textBoxAnhBia.Size = new System.Drawing.Size(100, 22);
@@ -179,6 +188,7 @@
             // 
             // labelNgayCapNhat
             // 
+            this.labelNgayCapNhat.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelNgayCapNhat.AutoSize = true;
             this.labelNgayCapNhat.Location = new System.Drawing.Point(263, 130);
             this.labelNgayCapNhat.Name = "labelNgayCapNhat";
@@ -188,6 +198,7 @@
             // 
             // labelDonGia
             // 
+            this.labelDonGia.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelDonGia.AutoSize = true;
             this.labelDonGia.Location = new System.Drawing.Point(304, 37);
             this.labelDonGia.Name = "labelDonGia";
@@ -197,6 +208,7 @@
             // 
             // dateTimePickerNgayCapNhat
             // 
+            this.dateTimePickerNgayCapNhat.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dateTimePickerNgayCapNhat.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePickerNgayCapNhat.Location = new System.Drawing.Point(366, 127);
             this.dateTimePickerNgayCapNhat.Name = "dateTimePickerNgayCapNhat";
@@ -205,6 +217,7 @@
             // 
             // numericUpDownNamXuatBan
             // 
+            this.numericUpDownNamXuatBan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.numericUpDownNamXuatBan.Location = new System.Drawing.Point(108, 119);
             this.numericUpDownNamXuatBan.Maximum = new decimal(new int[] {
             2500,
@@ -222,6 +235,7 @@
             // 
             // labelTrangThai
             // 
+            this.labelTrangThai.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelTrangThai.AutoSize = true;
             this.labelTrangThai.Location = new System.Drawing.Point(290, 153);
             this.labelTrangThai.Name = "labelTrangThai";
@@ -231,6 +245,7 @@
             // 
             // textBoxNgonNgu
             // 
+            this.textBoxNgonNgu.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxNgonNgu.Location = new System.Drawing.Point(366, 6);
             this.textBoxNgonNgu.Name = "textBoxNgonNgu";
             this.textBoxNgonNgu.Size = new System.Drawing.Size(100, 22);
@@ -238,6 +253,7 @@
             // 
             // textBoxTrangThai
             // 
+            this.textBoxTrangThai.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxTrangThai.Location = new System.Drawing.Point(366, 155);
             this.textBoxTrangThai.Name = "textBoxTrangThai";
             this.textBoxTrangThai.Size = new System.Drawing.Size(100, 22);
@@ -245,6 +261,7 @@
             // 
             // labelNgonNgu
             // 
+            this.labelNgonNgu.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelNgonNgu.AutoSize = true;
             this.labelNgonNgu.Location = new System.Drawing.Point(292, 9);
             this.labelNgonNgu.Name = "labelNgonNgu";
@@ -254,6 +271,7 @@
             // 
             // labelMoTa
             // 
+            this.labelMoTa.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelMoTa.AutoSize = true;
             this.labelMoTa.Location = new System.Drawing.Point(531, 10);
             this.labelMoTa.Name = "labelMoTa";
@@ -263,6 +281,7 @@
             // 
             // textBoxTheLoai
             // 
+            this.textBoxTheLoai.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxTheLoai.Location = new System.Drawing.Point(108, 147);
             this.textBoxTheLoai.Name = "textBoxTheLoai";
             this.textBoxTheLoai.Size = new System.Drawing.Size(100, 22);
@@ -270,6 +289,7 @@
             // 
             // labelTheLoai
             // 
+            this.labelTheLoai.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelTheLoai.AutoSize = true;
             this.labelTheLoai.Location = new System.Drawing.Point(43, 150);
             this.labelTheLoai.Name = "labelTheLoai";
@@ -279,6 +299,7 @@
             // 
             // labelNamXuatBan
             // 
+            this.labelNamXuatBan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelNamXuatBan.AutoSize = true;
             this.labelNamXuatBan.Location = new System.Drawing.Point(10, 121);
             this.labelNamXuatBan.Name = "labelNamXuatBan";
@@ -288,6 +309,7 @@
             // 
             // numericUpDownSLTonKho
             // 
+            this.numericUpDownSLTonKho.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.numericUpDownSLTonKho.Location = new System.Drawing.Point(366, 63);
             this.numericUpDownSLTonKho.Maximum = new decimal(new int[] {
             1000,
@@ -300,6 +322,7 @@
             // 
             // textBoxNhaXuatBan
             // 
+            this.textBoxNhaXuatBan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxNhaXuatBan.Location = new System.Drawing.Point(108, 91);
             this.textBoxNhaXuatBan.Name = "textBoxNhaXuatBan";
             this.textBoxNhaXuatBan.Size = new System.Drawing.Size(100, 22);
@@ -307,6 +330,7 @@
             // 
             // labelNXB
             // 
+            this.labelNXB.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelNXB.AutoSize = true;
             this.labelNXB.Location = new System.Drawing.Point(14, 94);
             this.labelNXB.Name = "labelNXB";
@@ -316,6 +340,7 @@
             // 
             // textBoxTacGia
             // 
+            this.textBoxTacGia.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxTacGia.Location = new System.Drawing.Point(108, 63);
             this.textBoxTacGia.Name = "textBoxTacGia";
             this.textBoxTacGia.Size = new System.Drawing.Size(100, 22);
@@ -323,6 +348,7 @@
             // 
             // labelTacGia
             // 
+            this.labelTacGia.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelTacGia.AutoSize = true;
             this.labelTacGia.Location = new System.Drawing.Point(46, 66);
             this.labelTacGia.Name = "labelTacGia";
@@ -332,6 +358,7 @@
             // 
             // textBoxTenSach
             // 
+            this.textBoxTenSach.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxTenSach.Location = new System.Drawing.Point(108, 35);
             this.textBoxTenSach.Name = "textBoxTenSach";
             this.textBoxTenSach.Size = new System.Drawing.Size(100, 22);
@@ -339,6 +366,7 @@
             // 
             // labelTenSach
             // 
+            this.labelTenSach.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelTenSach.AutoSize = true;
             this.labelTenSach.Location = new System.Drawing.Point(36, 38);
             this.labelTenSach.Name = "labelTenSach";
@@ -348,6 +376,7 @@
             // 
             // textBoxMaSach
             // 
+            this.textBoxMaSach.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxMaSach.Location = new System.Drawing.Point(108, 7);
             this.textBoxMaSach.Name = "textBoxMaSach";
             this.textBoxMaSach.ReadOnly = true;
@@ -356,6 +385,7 @@
             // 
             // buttonLuu
             // 
+            this.buttonLuu.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonLuu.BackColor = System.Drawing.SystemColors.Control;
             this.buttonLuu.Location = new System.Drawing.Point(821, 83);
             this.buttonLuu.Name = "buttonLuu";
@@ -367,6 +397,7 @@
             // 
             // labelMaSach
             // 
+            this.labelMaSach.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelMaSach.AutoSize = true;
             this.labelMaSach.Location = new System.Drawing.Point(41, 10);
             this.labelMaSach.Name = "labelMaSach";
@@ -376,6 +407,7 @@
             // 
             // buttonHuy
             // 
+            this.buttonHuy.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonHuy.BackColor = System.Drawing.SystemColors.Control;
             this.buttonHuy.Location = new System.Drawing.Point(821, 141);
             this.buttonHuy.Name = "buttonHuy";
@@ -387,6 +419,7 @@
             // 
             // textBoxMoTa
             // 
+            this.textBoxMoTa.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxMoTa.Location = new System.Drawing.Point(534, 38);
             this.textBoxMoTa.Multiline = true;
             this.textBoxMoTa.Name = "textBoxMoTa";
@@ -396,6 +429,7 @@
             // 
             // panelMain
             // 
+            this.panelMain.BackColor = System.Drawing.Color.Transparent;
             this.panelMain.Controls.Add(this.numericUpDownDonGia);
             this.panelMain.Controls.Add(this.textBoxMoTa);
             this.panelMain.Controls.Add(this.buttonHuy);
@@ -431,6 +465,7 @@
             // 
             // numericUpDownDonGia
             // 
+            this.numericUpDownDonGia.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.numericUpDownDonGia.Increment = new decimal(new int[] {
             10000,
             0,
@@ -462,7 +497,7 @@
             this.Controls.Add(this.dataGridViewMain);
             this.Controls.Add(this.labelNguoiDung);
             this.Name = "FormSach";
-            this.Text = "FormSach";
+            this.Text = "Quản lý sách";
             this.Load += new System.EventHandler(this.FormSach_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNamXuatBan)).EndInit();

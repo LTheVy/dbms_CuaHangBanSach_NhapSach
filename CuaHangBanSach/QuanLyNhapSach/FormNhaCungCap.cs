@@ -11,20 +11,20 @@ using System.Windows.Forms;
 
 namespace QuanLyNhapSach
 {
-    public partial class FormSach : Form
+    public partial class FormNhaCungCap : Form
     {
-        BL_Sach bL_KhoSach;
+        BL_NhaCungCap bL_NhaCungCap;
 
         string errMessage = "";
         bool isAdding = false;
-        public FormSach()
+        public FormNhaCungCap()
         {
             InitializeComponent();
         }
 
-        private void FormSach_Load(object sender, EventArgs e)
+        private void FormNhaCungCap_Load(object sender, EventArgs e)
         {
-            bL_KhoSach = new BL_Sach();
+            bL_NhaCungCap = new BL_NhaCungCap();
             labelNguoiDung.Text = "Người dùng: " + FormMain.name + " (" + FormMain.role + ")";
             isEditing(false);
             buttonTaiLai_Click(sender, e);
@@ -58,7 +58,7 @@ namespace QuanLyNhapSach
 
         private void buttonTaiLai_Click(object sender, EventArgs e)
         {
-            DataTable dt = bL_KhoSach.layKhoSachGoc(ref errMessage);
+            DataTable dt = bL_NhaCungCap.layNhaCungCapGoc(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
@@ -76,33 +76,20 @@ namespace QuanLyNhapSach
         }
 
         private void panelMain_LoadDuLieu(
-            string MaSach = "",
-            string TenSach = "",
-            string TacGia = "",
-            string NhaXuatBan = "",
-            decimal NamXuatBan = 0,
-            string TheLoai = "",
-            string NgonNgu = "",
-            decimal DonGia = 0,
-            decimal SoLuong = 0,
-            string AnhBia = "",
-            DateTime NgayCapNhat = default(DateTime),
-            string TrangThai = "",
-            string MoTa = ""
+            string MaNCC = "",
+            string TenNCC = "",
+            string DienThoai = "",
+            string DiaChi = "",
+            string Website = "",
+            string Email = ""
             )
         {
-            textBoxMaSach.Text = MaSach;
-            textBoxTenSach.Text = TenSach;
-            textBoxTacGia.Text = TacGia;
-            textBoxNhaXuatBan.Text = NhaXuatBan;
-            textBoxTheLoai.Text = TheLoai;
-            textBoxNgonNgu.Text = NgonNgu;
-            numericUpDownDonGia.Value = DonGia;
-            numericUpDownSLTonKho.Value = SoLuong;
-            textBoxAnhBia.Text = AnhBia;
-            dateTimePickerNgayCapNhat.Value = NgayCapNhat == default(DateTime) ? DateTime.Now : NgayCapNhat;
-            textBoxTrangThai.Text = TrangThai;
-            textBoxMoTa.Text = MoTa;
+            textBoxMaNCC.Text = MaNCC;
+            textBoxTenNCC.Text = TenNCC;
+            textBoxDienThoai.Text = DienThoai;
+            textBoxDiaChi.Text = DiaChi;
+            textBoxWebsite.Text = Website;
+            textBoxEmail.Text = Email;
         }
 
         private void dataGridViewMain_CurrentCellChanged(object sender, EventArgs e)
@@ -115,19 +102,12 @@ namespace QuanLyNhapSach
             }
             int currentRow = currentCell.RowIndex;
             panelMain_LoadDuLieu(
-                dataGridViewMain.Rows[currentRow].Cells["MaSach"].Value.ToString(),
-                dataGridViewMain.Rows[currentRow].Cells["TenSach"].Value.ToString(),
-                dataGridViewMain.Rows[currentRow].Cells["TacGia"].Value.ToString(),
-                dataGridViewMain.Rows[currentRow].Cells["NhaXuatBan"].Value.ToString(),
-                Convert.ToDecimal(dataGridViewMain.Rows[currentRow].Cells["NamXuatBan"].Value),
-                dataGridViewMain.Rows[currentRow].Cells["TheLoai"].Value.ToString(),
-                dataGridViewMain.Rows[currentRow].Cells["NgonNgu"].Value.ToString(),
-                Convert.ToDecimal(dataGridViewMain.Rows[currentRow].Cells["DonGia"].Value),
-                Convert.ToDecimal(dataGridViewMain.Rows[currentRow].Cells["SLTonKho"].Value),
-                dataGridViewMain.Rows[currentRow].Cells["AnhBia"].Value.ToString(),
-                Convert.ToDateTime(dataGridViewMain.Rows[currentRow].Cells["NgayCapNhat"].Value),
-                dataGridViewMain.Rows[currentRow].Cells["TrangThai"].Value.ToString(),
-                dataGridViewMain.Rows[currentRow].Cells["MoTa"].Value.ToString()
+                dataGridViewMain.Rows[currentRow].Cells["MaNCC"].Value.ToString(),
+                dataGridViewMain.Rows[currentRow].Cells["TenNCC"].Value.ToString(),
+                dataGridViewMain.Rows[currentRow].Cells["DienThoai"].Value.ToString(),
+                dataGridViewMain.Rows[currentRow].Cells["DiaChi"].Value.ToString(),
+                dataGridViewMain.Rows[currentRow].Cells["Website"].Value.ToString(),
+                dataGridViewMain.Rows[currentRow].Cells["Email"].Value.ToString()
                 );
         }
 
@@ -135,26 +115,19 @@ namespace QuanLyNhapSach
         {
             if (isAdding)
             {
-                if(!bL_KhoSach.themSach(
-                    textBoxTenSach.Text,
-                    textBoxTacGia.Text,
-                    textBoxNhaXuatBan.Text,
-                    numericUpDownNamXuatBan.Value,
-                    textBoxTheLoai.Text,
-                    textBoxNgonNgu.Text,
-                    numericUpDownDonGia.Value,
-                    numericUpDownSLTonKho.Value,
-                    textBoxAnhBia.Text,
-                    dateTimePickerNgayCapNhat.Value,
-                    textBoxTrangThai.Text,
-                    textBoxMoTa.Text,
+                if (!bL_NhaCungCap.themNhaCungCap(
+                    textBoxTenNCC.Text,
+                    textBoxDienThoai.Text,
+                    textBoxDiaChi.Text,
+                    textBoxWebsite.Text,
+                    textBoxEmail.Text,
                     ref errMessage
                     ))
                 {
                     MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                MessageBox.Show("Thêm sách thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Thêm nhà cung cấp thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 isEditing(false);
                 buttonTaiLai_Click(sender, e);
                 isAdding = false;
@@ -166,27 +139,20 @@ namespace QuanLyNhapSach
                     MessageBox.Show("Vui lòng chọn dữ liệu để sửa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                if (!bL_KhoSach.suaSach(
-                    textBoxMaSach.Text,
-                    textBoxTenSach.Text,
-                    textBoxTacGia.Text,
-                    textBoxNhaXuatBan.Text,
-                    numericUpDownNamXuatBan.Value,
-                    textBoxTheLoai.Text,
-                    textBoxNgonNgu.Text,
-                    numericUpDownDonGia.Value,
-                    numericUpDownSLTonKho.Value,
-                    textBoxAnhBia.Text,
-                    dateTimePickerNgayCapNhat.Value,
-                    textBoxTrangThai.Text,
-                    textBoxMoTa.Text,
+                if (!bL_NhaCungCap.suaNhaCungCap(
+                    textBoxMaNCC.Text,
+                    textBoxTenNCC.Text,
+                    textBoxDienThoai.Text,
+                    textBoxDiaChi.Text,
+                    textBoxWebsite.Text,
+                    textBoxEmail.Text,
                     ref errMessage
                     ))
                 {
                     MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                MessageBox.Show("Sửa sách thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Sửa nhà cung cấp thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 isEditing(false);
                 buttonTaiLai_Click(sender, e);
             }
@@ -231,21 +197,21 @@ namespace QuanLyNhapSach
                 return;
             }
 
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa sách này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa nhà cung cấp này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes)
             {
                 return;
             }
 
             string errMessage = "";
-            string maSach = dataGridViewMain.Rows[dataGridViewMain.CurrentCell.RowIndex].Cells["MaSach"].Value.ToString();
-            if (!bL_KhoSach.xoaSach(maSach, ref errMessage))
+            string maNCC = dataGridViewMain.Rows[dataGridViewMain.CurrentCell.RowIndex].Cells["MaNCC"].Value.ToString();
+            if (!bL_NhaCungCap.xoaNhaCungCap(maNCC, ref errMessage))
             {
                 MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            MessageBox.Show("Xóa sách thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Xóa nhà cung cấp thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             buttonTaiLai_Click(sender, e);
         }
     }

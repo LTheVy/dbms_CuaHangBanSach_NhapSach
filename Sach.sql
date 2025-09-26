@@ -23,7 +23,7 @@ FROM Sach s
 
 --View: Lấy danh sách kho sách gốc
 GO
-CREATE OR ALTER VIEW vw_SachGoc AS
+CREATE OR ALTER VIEW vw_DanhSachSachGoc AS
 SELECT * FROM Sach
 
 
@@ -87,7 +87,7 @@ BEGIN
 END;
 
 
---Procedure: Cập nhật sách
+--Procedure: Sửa sách
 GO
 CREATE OR ALTER PROCEDURE sp_SuaSach
     @MaSach INT,
