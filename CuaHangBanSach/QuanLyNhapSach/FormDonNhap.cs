@@ -58,7 +58,7 @@ namespace QuanLyNhapSach
 
         private void buttonTaiLai_Click(object sender, EventArgs e)
         {
-            DataTable dt = bL_DonNhap.layDonNhapGoc(ref errMessage);
+            DataTable dt = bL_DonNhap.layDuLieuGoc(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
@@ -115,7 +115,7 @@ namespace QuanLyNhapSach
         {
             if (isAdding)
             {
-                if (!bL_DonNhap.themDonNhap(
+                if (!bL_DonNhap.them(
                     dateTimePickerNgayLapDN.Value,
                     numericUpDownTongTien.Value,
                     comboBoxTinhTrangNhap.Text,
@@ -139,7 +139,7 @@ namespace QuanLyNhapSach
                     MessageBox.Show("Vui lòng chọn dữ liệu để sửa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                if (!bL_DonNhap.suaDonNhap(
+                if (!bL_DonNhap.sua(
                     textBoxMaDN.Text,
                     dateTimePickerNgayLapDN.Value,
                     numericUpDownTongTien.Value,
@@ -205,7 +205,7 @@ namespace QuanLyNhapSach
 
             string errMessage = "";
             string maNCC = dataGridViewMain.Rows[dataGridViewMain.CurrentCell.RowIndex].Cells["MaNCC"].Value.ToString();
-            if (!bL_DonNhap.xoaDonNhap(maNCC, ref errMessage))
+            if (!bL_DonNhap.xoa(maNCC, ref errMessage))
             {
                 MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

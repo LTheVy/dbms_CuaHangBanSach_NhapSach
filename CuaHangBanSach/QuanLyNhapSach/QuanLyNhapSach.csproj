@@ -46,11 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business Layer\BL_ChiTietDonNhap.cs" />
     <Compile Include="Business Layer\BL_DangNhap.cs" />
     <Compile Include="Business Layer\BL_DonNhap.cs" />
     <Compile Include="Business Layer\BL_Sach.cs" />
     <Compile Include="Business Layer\BL_NhaCungCap.cs" />
     <Compile Include="Database Layer\DBMain.cs" />
+    <Compile Include="FormChiTietDonNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChiTietDonNhap.Designer.cs">
+      <DependentUpon>FormChiTietDonNhap.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormChon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +102,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormChiTietDonNhap.resx">
+      <DependentUpon>FormChiTietDonNhap.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDonNhap.resx">
       <DependentUpon>FormDonNhap.cs</DependentUpon>
     </EmbeddedResource>

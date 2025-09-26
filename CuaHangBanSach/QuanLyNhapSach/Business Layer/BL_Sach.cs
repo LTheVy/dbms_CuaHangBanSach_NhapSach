@@ -19,7 +19,7 @@ namespace QuanLyNhapSach.Business_Layer
             db = new DBMain();
         }
 
-        public DataTable layKhoSach(ref string errMessage)
+        public DataTable layDuLieu(ref string errMessage)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT * FROM vw_DanhSachSach";
@@ -29,7 +29,7 @@ namespace QuanLyNhapSach.Business_Layer
             return ds.Tables[0];
         }
 
-        public DataTable layKhoSachGoc(ref string errMessage)
+        public DataTable layDuLieuGoc(ref string errMessage)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT * FROM vw_DanhSachSachGoc";
@@ -39,7 +39,7 @@ namespace QuanLyNhapSach.Business_Layer
             return ds.Tables[0];
         }
 
-        public bool themSach(
+        public bool them(
             string tenSach,
             string tacGia,
             string nhaXuatBan,
@@ -97,7 +97,7 @@ namespace QuanLyNhapSach.Business_Layer
             return returnValue != 0;
         }
 
-        public bool suaSach(
+        public bool sua(
             string maSach,
             string tenSach,
             string tacGia,
@@ -160,7 +160,7 @@ namespace QuanLyNhapSach.Business_Layer
             return returnValue != 0;
         }
 
-        public bool xoaSach(string maSach, ref string errMessage)
+        public bool xoa(string maSach, ref string errMessage)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "sp_XoaSach";

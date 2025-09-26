@@ -19,7 +19,7 @@ namespace QuanLyNhapSach.Business_Layer
             db = new DBMain();
         }
 
-        public DataTable layNhaCungCap(ref string errMessage)
+        public DataTable layDuLieu(ref string errMessage)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT * FROM vw_DanhSachNhaCungCap";
@@ -29,7 +29,7 @@ namespace QuanLyNhapSach.Business_Layer
             return ds.Tables[0];
         }
 
-        public DataTable layNhaCungCapGoc(ref string errMessage)
+        public DataTable layDuLieuGoc(ref string errMessage)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT * FROM vw_DanhSachNhaCungCapGoc";
@@ -39,7 +39,7 @@ namespace QuanLyNhapSach.Business_Layer
             return ds.Tables[0];
         }
 
-        public bool themNhaCungCap(
+        public bool them(
             string tenNCC,
             string dienThoai,
             string diaChi,
@@ -82,7 +82,7 @@ namespace QuanLyNhapSach.Business_Layer
             return returnValue != 0;
         }
 
-        public bool suaNhaCungCap(
+        public bool sua(
             string maNCC,
             string tenNCC,
             string dienThoai,
@@ -132,7 +132,7 @@ namespace QuanLyNhapSach.Business_Layer
             return returnValue != 0;
         }
 
-        public bool xoaNhaCungCap(string maNCC, ref string errMessage)
+        public bool xoa(string maNCC, ref string errMessage)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "sp_XoaNhaCungCap";

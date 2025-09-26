@@ -58,7 +58,7 @@ namespace QuanLyNhapSach
 
         private void buttonTaiLai_Click(object sender, EventArgs e)
         {
-            DataTable dt = bL_NhaCungCap.layNhaCungCapGoc(ref errMessage);
+            DataTable dt = bL_NhaCungCap.layDuLieuGoc(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
@@ -115,7 +115,7 @@ namespace QuanLyNhapSach
         {
             if (isAdding)
             {
-                if (!bL_NhaCungCap.themNhaCungCap(
+                if (!bL_NhaCungCap.them(
                     textBoxTenNCC.Text,
                     textBoxDienThoai.Text,
                     textBoxDiaChi.Text,
@@ -139,7 +139,7 @@ namespace QuanLyNhapSach
                     MessageBox.Show("Vui lòng chọn dữ liệu để sửa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                if (!bL_NhaCungCap.suaNhaCungCap(
+                if (!bL_NhaCungCap.sua(
                     textBoxMaNCC.Text,
                     textBoxTenNCC.Text,
                     textBoxDienThoai.Text,
@@ -205,7 +205,7 @@ namespace QuanLyNhapSach
 
             string errMessage = "";
             string maNCC = dataGridViewMain.Rows[dataGridViewMain.CurrentCell.RowIndex].Cells["MaNCC"].Value.ToString();
-            if (!bL_NhaCungCap.xoaNhaCungCap(maNCC, ref errMessage))
+            if (!bL_NhaCungCap.xoa(maNCC, ref errMessage))
             {
                 MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

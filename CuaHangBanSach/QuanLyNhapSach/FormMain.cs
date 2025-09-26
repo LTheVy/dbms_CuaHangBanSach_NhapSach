@@ -13,6 +13,8 @@ namespace QuanLyNhapSach
 {
     public partial class FormMain : Form
     {
+        FormChiTietDonNhap formChiTietDonNhap;
+
         public static int id = -1;
         public static string name = "";
         public static string role = "";
@@ -84,7 +86,7 @@ namespace QuanLyNhapSach
 
         private void loadDonNhap()
         {
-            DataTable dt = new BL_DonNhap().LayDonNhap(ref errMessage);
+            DataTable dt = new BL_DonNhap().LayDuLieu(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
@@ -96,19 +98,19 @@ namespace QuanLyNhapSach
 
         private void loadKhoSach()
         {
-            DataTable dt = new BL_Sach().layKhoSach(ref errMessage);
+            DataTable dt = new BL_Sach().layDuLieu(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
                     MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            dataGridViewKhoSach.DataSource = dt;
+            dataGridViewSach.DataSource = dt;
         }
 
         private void loadNhaCungCap()
         {
-            DataTable dt = new BL_NhaCungCap().layNhaCungCap(ref errMessage);
+            DataTable dt = new BL_NhaCungCap().layDuLieu(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
@@ -145,6 +147,21 @@ namespace QuanLyNhapSach
             loadKhoSach();
         }
 
+        private void buttonSachXemChiTiet_Click(object sender, EventArgs e)
+        {
+            string maSach = "";
+            if (dataGridViewSach.CurrentRow != null)
+            {
+                maSach = dataGridViewSach.CurrentRow.Cells["MaSach"].Value.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn sách để xem chi tiết!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            formChiTietDonNhap = new FormChiTietDonNhap(maSach, "", "");
+            formChiTietDonNhap.Show();
+        }
         private void buttonNCCChinhSua_Click(object sender, EventArgs e)
         {
             FormNhaCungCap formNhaCungCap = new FormNhaCungCap();
@@ -155,6 +172,21 @@ namespace QuanLyNhapSach
         private void buttonNCCTaiLai_Click(object sender, EventArgs e)
         {
             loadNhaCungCap();
+        }
+        private void buttonNCCXemChiTiet_Click(object sender, EventArgs e)
+        {
+            string maNCC = "";
+            if (dataGridViewNhaCungCap.CurrentRow != null)
+            {
+                maNCC = dataGridViewNhaCungCap.CurrentRow.Cells["MaNCC"].Value.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn nhà cung cấp để xem chi tiết!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            formChiTietDonNhap = new FormChiTietDonNhap("", maNCC, "");
+            formChiTietDonNhap.Show();
         }
 
         private void buttonDNChinhSua_Click(object sender, EventArgs e)
@@ -167,6 +199,22 @@ namespace QuanLyNhapSach
         private void buttonDNTaiLai_Click(object sender, EventArgs e)
         {
             loadDonNhap();
+        }
+
+        private void buttonDNXemChiTiet_Click(object sender, EventArgs e)
+        {
+            string maDN = "";
+            if (dataGridViewDonNhap.CurrentRow != null)
+            {
+                maDN = dataGridViewDonNhap.CurrentRow.Cells["MaDN"].Value.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn đơn nhập để xem chi tiết!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            formChiTietDonNhap = new FormChiTietDonNhap("", "", maDN);
+            formChiTietDonNhap.Show();
         }
     }
 }

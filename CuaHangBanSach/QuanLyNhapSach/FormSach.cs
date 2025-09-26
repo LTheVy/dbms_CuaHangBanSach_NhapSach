@@ -13,7 +13,7 @@ namespace QuanLyNhapSach
 {
     public partial class FormSach : Form
     {
-        BL_Sach bL_KhoSach;
+        BL_Sach bL_Sach;
 
         string errMessage = "";
         bool isAdding = false;
@@ -24,7 +24,7 @@ namespace QuanLyNhapSach
 
         private void FormSach_Load(object sender, EventArgs e)
         {
-            bL_KhoSach = new BL_Sach();
+            bL_Sach = new BL_Sach();
             labelNguoiDung.Text = "Người dùng: " + FormMain.name + " (" + FormMain.role + ")";
             isEditing(false);
             buttonTaiLai_Click(sender, e);
@@ -58,7 +58,7 @@ namespace QuanLyNhapSach
 
         private void buttonTaiLai_Click(object sender, EventArgs e)
         {
-            DataTable dt = bL_KhoSach.layKhoSachGoc(ref errMessage);
+            DataTable dt = bL_Sach.layDuLieuGoc(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
@@ -135,7 +135,7 @@ namespace QuanLyNhapSach
         {
             if (isAdding)
             {
-                if(!bL_KhoSach.themSach(
+                if(!bL_Sach.them(
                     textBoxTenSach.Text,
                     textBoxTacGia.Text,
                     textBoxNhaXuatBan.Text,
@@ -166,7 +166,7 @@ namespace QuanLyNhapSach
                     MessageBox.Show("Vui lòng chọn dữ liệu để sửa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                if (!bL_KhoSach.suaSach(
+                if (!bL_Sach.sua(
                     textBoxMaSach.Text,
                     textBoxTenSach.Text,
                     textBoxTacGia.Text,
@@ -239,7 +239,7 @@ namespace QuanLyNhapSach
 
             string errMessage = "";
             string maSach = dataGridViewMain.Rows[dataGridViewMain.CurrentCell.RowIndex].Cells["MaSach"].Value.ToString();
-            if (!bL_KhoSach.xoaSach(maSach, ref errMessage))
+            if (!bL_Sach.xoa(maSach, ref errMessage))
             {
                 MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
