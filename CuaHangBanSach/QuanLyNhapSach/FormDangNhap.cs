@@ -27,11 +27,6 @@ namespace QuanLyNhapSach
         private void FormLogin_Load(object sender, EventArgs e)
         {
             bL_DangNhap = new BL_DangNhap();
-            // Load test
-            textBoxTenDangNhap.Text = "manager";
-            textBoxMatKhau.Text = "manager123";
-            buttonLoginConfirm_Click(sender, e);
-            //
         }
 
         private void buttonLoginCancel_Click(object sender, EventArgs e)

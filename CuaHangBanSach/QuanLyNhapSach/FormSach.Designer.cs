@@ -316,9 +316,19 @@
             0,
             0,
             0});
+            this.numericUpDownSLTonKho.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownSLTonKho.Name = "numericUpDownSLTonKho";
             this.numericUpDownSLTonKho.Size = new System.Drawing.Size(70, 22);
             this.numericUpDownSLTonKho.TabIndex = 17;
+            this.numericUpDownSLTonKho.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // textBoxNhaXuatBan
             // 

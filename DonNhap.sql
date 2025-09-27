@@ -10,12 +10,28 @@ AS
 BEGIN
 	DECLARE @TongSoLuong INT;
 
-	SELECT @TongSoLuong= SUM(SoLuong)
+	SELECT @TongSoLuong = SUM(SoLuong)
 	FROM DonNhap dn
 	JOIN ChiTietDonNhap ctdn ON dn.MaDN = ctdn.MaDN
 	WHERE dn.MaDN = @MaDN
 
 	RETURN ISNULL(@TongSoLuong, 0);
+END;
+
+
+--Function: Lấy TinhTrangNhap một DonNhap
+GO
+CREATE OR ALTER FUNCTION fn_LayTinhTrangNhapDonNhap(@MaDN INT)
+RETURNS NVARCHAR(50)
+AS
+BEGIN
+	DECLARE @TinhTrangNhap NVARCHAR(50) = N'';
+
+	SELECT @TinhTrangNhap = TinhTrangNhap
+	FROM DonNhap
+	WHERE MaDN = @MaDN
+
+	RETURN @TinhTrangNhap
 END;
 
 
@@ -32,7 +48,8 @@ SELECT
 	nd.HoTen AS TenNguoiNhap,
 	dn.GhiChu
 FROM DonNhap dn
-JOIN NguoiDung nd ON dn.MaNguoiDung = nd.MaNguoiDung;
+JOIN NguoiDung nd ON dn.MaNguoiDung = nd.MaNguoiDung
+WHERE TinhTrangNhap <> N'Hủy đơn'
 
 --View: Lấy danh sách đơn nhập gốc
 GO
@@ -204,5 +221,3 @@ BEGIN
     END CATCH
 END
 
-GO
-ALTER TABLE DonNhap ADD CONSTRAINT CK_DonNhap_TinhTrangNhap CHECK (TinhTrangNhap IN (N'Đã nhập', N'Chưa nhập', N'Hủy đơn'))

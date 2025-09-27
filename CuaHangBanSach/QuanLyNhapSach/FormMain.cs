@@ -29,10 +29,6 @@ namespace QuanLyNhapSach
         {
             EnableFormMain(false);
             tabControlMain.Visible = false;
-
-            //new FormThemDN().ShowDialog();
-
-            loginToolStripMenuItem_Click(sender, e);
         }
 
         private void EnableFormMain(bool enable)

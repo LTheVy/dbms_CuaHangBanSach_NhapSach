@@ -30,6 +30,7 @@
         {
             this.dataGridViewMain = new System.Windows.Forms.DataGridView();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.buttonLuuGhiChu = new System.Windows.Forms.Button();
             this.textBoxGhiChu = new System.Windows.Forms.TextBox();
             this.labelMaDN = new System.Windows.Forms.Label();
             this.textBoxMaDN = new System.Windows.Forms.TextBox();
@@ -54,7 +55,6 @@
             this.textBoxMaSach = new System.Windows.Forms.TextBox();
             this.labelMaNCC = new System.Windows.Forms.Label();
             this.labelMaSach = new System.Windows.Forms.Label();
-            this.buttonLuuGhiChu = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             this.panelMain.SuspendLayout();
             this.panelChiTiet.SuspendLayout();
@@ -93,6 +93,17 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(823, 100);
             this.panelMain.TabIndex = 59;
+            // 
+            // buttonLuuGhiChu
+            // 
+            this.buttonLuuGhiChu.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonLuuGhiChu.Location = new System.Drawing.Point(725, 10);
+            this.buttonLuuGhiChu.Name = "buttonLuuGhiChu";
+            this.buttonLuuGhiChu.Size = new System.Drawing.Size(95, 37);
+            this.buttonLuuGhiChu.TabIndex = 39;
+            this.buttonLuuGhiChu.Text = "Lưu ghi chú";
+            this.buttonLuuGhiChu.UseVisualStyleBackColor = false;
+            this.buttonLuuGhiChu.Click += new System.EventHandler(this.buttonLuuGhiChu_Click);
             // 
             // textBoxGhiChu
             // 
@@ -295,9 +306,19 @@
             0,
             0,
             0});
+            this.numericUpDownSoLuong.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownSoLuong.Name = "numericUpDownSoLuong";
             this.numericUpDownSoLuong.Size = new System.Drawing.Size(70, 22);
             this.numericUpDownSoLuong.TabIndex = 18;
+            this.numericUpDownSoLuong.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // labelGiaNhap
             // 
@@ -348,17 +369,6 @@
             this.labelMaSach.Size = new System.Drawing.Size(61, 16);
             this.labelMaSach.TabIndex = 0;
             this.labelMaSach.Text = "Mã sách:";
-            // 
-            // buttonLuuGhiChu
-            // 
-            this.buttonLuuGhiChu.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonLuuGhiChu.Location = new System.Drawing.Point(725, 10);
-            this.buttonLuuGhiChu.Name = "buttonLuuGhiChu";
-            this.buttonLuuGhiChu.Size = new System.Drawing.Size(95, 37);
-            this.buttonLuuGhiChu.TabIndex = 39;
-            this.buttonLuuGhiChu.Text = "Lưu ghi chú";
-            this.buttonLuuGhiChu.UseVisualStyleBackColor = false;
-            this.buttonLuuGhiChu.Click += new System.EventHandler(this.buttonLuuGhiChu_Click);
             // 
             // FormNhapHang
             // 

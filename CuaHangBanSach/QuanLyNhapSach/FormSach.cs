@@ -88,7 +88,7 @@ namespace QuanLyNhapSach
             string TheLoai = "",
             string NgonNgu = "",
             decimal DonGia = 0,
-            decimal SoLuong = 0,
+            decimal SLTonKho = 1,
             string AnhBia = "",
             DateTime NgayCapNhat = default(DateTime),
             string TrangThai = "",
@@ -102,7 +102,7 @@ namespace QuanLyNhapSach
             textBoxTheLoai.Text = TheLoai;
             textBoxNgonNgu.Text = NgonNgu;
             numericUpDownDonGia.Value = DonGia;
-            numericUpDownSLTonKho.Value = SoLuong;
+            numericUpDownSLTonKho.Value = SLTonKho;
             textBoxAnhBia.Text = AnhBia;
             dateTimePickerNgayCapNhat.Value = NgayCapNhat == default(DateTime) ? DateTime.Now : NgayCapNhat;
             textBoxTrangThai.Text = TrangThai;

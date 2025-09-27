@@ -49,10 +49,10 @@
             this.textBoxMaSach = new System.Windows.Forms.TextBox();
             this.buttonThoat = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.numericUpDownThanhTien = new System.Windows.Forms.NumericUpDown();
             this.buttonChonMaDN = new System.Windows.Forms.Button();
             this.buttonChonMaNCC = new System.Windows.Forms.Button();
             this.buttonChonMaSach = new System.Windows.Forms.Button();
-            this.numericUpDownThanhTien = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGiaNhap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSoLuong)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
@@ -86,9 +86,19 @@
             0,
             0,
             0});
+            this.numericUpDownSoLuong.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownSoLuong.Name = "numericUpDownSoLuong";
             this.numericUpDownSoLuong.Size = new System.Drawing.Size(70, 22);
             this.numericUpDownSoLuong.TabIndex = 18;
+            this.numericUpDownSoLuong.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // labelGiaNhap
             // 
@@ -299,6 +309,25 @@
             this.panelMain.Size = new System.Drawing.Size(823, 121);
             this.panelMain.TabIndex = 59;
             // 
+            // numericUpDownThanhTien
+            // 
+            this.numericUpDownThanhTien.Increment = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownThanhTien.Location = new System.Drawing.Point(456, 64);
+            this.numericUpDownThanhTien.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.numericUpDownThanhTien.Name = "numericUpDownThanhTien";
+            this.numericUpDownThanhTien.ReadOnly = true;
+            this.numericUpDownThanhTien.Size = new System.Drawing.Size(156, 22);
+            this.numericUpDownThanhTien.TabIndex = 42;
+            this.numericUpDownThanhTien.ThousandsSeparator = true;
+            // 
             // buttonChonMaDN
             // 
             this.buttonChonMaDN.Location = new System.Drawing.Point(313, 6);
@@ -328,25 +357,6 @@
             this.buttonChonMaSach.Text = "Chọn";
             this.buttonChonMaSach.UseVisualStyleBackColor = true;
             this.buttonChonMaSach.Click += new System.EventHandler(this.buttonChonMaSach_Click);
-            // 
-            // numericUpDownThanhTien
-            // 
-            this.numericUpDownThanhTien.Increment = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownThanhTien.Location = new System.Drawing.Point(456, 64);
-            this.numericUpDownThanhTien.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.numericUpDownThanhTien.Name = "numericUpDownThanhTien";
-            this.numericUpDownThanhTien.ReadOnly = true;
-            this.numericUpDownThanhTien.Size = new System.Drawing.Size(156, 22);
-            this.numericUpDownThanhTien.TabIndex = 42;
-            this.numericUpDownThanhTien.ThousandsSeparator = true;
             // 
             // FormChiTietDonNhap
             // 

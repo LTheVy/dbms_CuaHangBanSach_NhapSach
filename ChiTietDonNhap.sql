@@ -97,6 +97,14 @@ BEGIN
             RETURN 0;
         END
 
+		--Kiểm tra DonNhap có bị hủy
+		IF dbo.fn_LayTinhTrangNhapDonNhap(@MaDN) = N'Hủy đơn'
+		BEGIN
+            SET @ErrorMessage = N'Đơn đã bị hủy';
+            ROLLBACK;
+            RETURN 0;
+        END
+
         INSERT INTO ChiTietDonNhap (MaDN, MaSach, MaNCC, SoLuong, GiaNhap, ThanhTien)
         VALUES (@MaDN, @MaSach, @MaNCC, @SoLuong, @GiaNhap, @ThanhTien);
 
@@ -165,7 +173,14 @@ BEGIN
             RETURN 0;
         END
 
-        -- Cập nhật ChiTietDonNhap
+		--Kiểm tra DonNhap có bị hủy
+		IF dbo.fn_LayTinhTrangNhapDonNhap(@MaDNCu) = N'Hủy đơn' OR dbo.fn_LayTinhTrangNhapDonNhap(@MaDNMoi) = N'Hủy đơn'
+		BEGIN
+            SET @ErrorMessage = N'Đơn đã bị hủy';
+            ROLLBACK;
+            RETURN 0;
+        END
+
         UPDATE ChiTietDonNhap
         SET	MaDN = @MaDNMoi,
 			MaSach = @MaSachMoi,
@@ -211,7 +226,14 @@ BEGIN
             RETURN 0;
         END
 
-        -- Xóa bản ghi trong ChiTietDonNhap
+		--Kiểm tra DonNhap có bị hủy
+		IF dbo.fn_LayTinhTrangNhapDonNhap(@MaDN) = N'Hủy đơn'
+		BEGIN
+            SET @ErrorMessage = N'Đơn đã bị hủy';
+            ROLLBACK;
+            RETURN 0;
+        END
+
         DELETE FROM ChiTietDonNhap
         WHERE MaDN = @MaDN AND MaSach = @MaSach AND MaNCC = @MaNCC;
 
@@ -279,7 +301,14 @@ BEGIN
             RETURN 0;
         END
 
-        -- Cập nhật ChiTietDonNhap
+		--Kiểm tra DonNhap có bị hủy
+		IF dbo.fn_LayTinhTrangNhapDonNhap(@MaDN) = N'Hủy đơn'
+		BEGIN
+            SET @ErrorMessage = N'Đơn đã bị hủy';
+            ROLLBACK;
+            RETURN 0;
+        END
+
         UPDATE ChiTietDonNhap
         SET MaSach = @MaSachMoi,
 			MaNCC = @MaNCCMoi,

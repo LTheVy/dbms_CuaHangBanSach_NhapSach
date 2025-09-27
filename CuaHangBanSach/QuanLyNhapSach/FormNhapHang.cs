@@ -115,7 +115,7 @@ namespace QuanLyNhapSach
         private void panelChiTiet_LoadDuLieu(
             string maSach = "",
             string maNCC = "",
-            decimal soLuong = 0,
+            decimal soLuong = 1,
             decimal giaNhap = 0
             )
         {

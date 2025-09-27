@@ -126,7 +126,7 @@ namespace QuanLyNhapSach
             string maDN = "",
             string maSach = "",
             string maNCC = "",
-            decimal soLuong = 0,
+            decimal soLuong = 1,
             decimal giaNhap = 0,
             decimal thanhTien = 0
             )
