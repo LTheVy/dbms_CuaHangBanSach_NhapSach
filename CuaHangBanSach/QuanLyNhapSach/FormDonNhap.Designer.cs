@@ -34,8 +34,11 @@
             this.buttonSua = new System.Windows.Forms.Button();
             this.buttonThem = new System.Windows.Forms.Button();
             this.labelNguoiDung = new System.Windows.Forms.Label();
-            this.textBoxGhiChu = new System.Windows.Forms.TextBox();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.comboBoxTinhTrangNhap = new System.Windows.Forms.ComboBox();
+            this.numericUpDownTongTien = new System.Windows.Forms.NumericUpDown();
+            this.dateTimePickerNgayLapDN = new System.Windows.Forms.DateTimePicker();
+            this.textBoxGhiChu = new System.Windows.Forms.TextBox();
             this.buttonHuy = new System.Windows.Forms.Button();
             this.labelMaDN = new System.Windows.Forms.Label();
             this.buttonLuu = new System.Windows.Forms.Button();
@@ -47,12 +50,9 @@
             this.labelMaNguoiDung = new System.Windows.Forms.Label();
             this.labelTinhTrangNhap = new System.Windows.Forms.Label();
             this.dataGridViewMain = new System.Windows.Forms.DataGridView();
-            this.dateTimePickerNgayLapDN = new System.Windows.Forms.DateTimePicker();
-            this.numericUpDownTongTien = new System.Windows.Forms.NumericUpDown();
-            this.comboBoxTinhTrangNhap = new System.Windows.Forms.ComboBox();
             this.panelMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTongTien)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonThoat
@@ -125,15 +125,6 @@
             this.labelNguoiDung.TabIndex = 44;
             this.labelNguoiDung.Text = "Người dùng:";
             // 
-            // textBoxGhiChu
-            // 
-            this.textBoxGhiChu.Location = new System.Drawing.Point(435, 43);
-            this.textBoxGhiChu.Multiline = true;
-            this.textBoxGhiChu.Name = "textBoxGhiChu";
-            this.textBoxGhiChu.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxGhiChu.Size = new System.Drawing.Size(257, 78);
-            this.textBoxGhiChu.TabIndex = 11;
-            // 
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.Color.Transparent;
@@ -155,6 +146,56 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(823, 187);
             this.panelMain.TabIndex = 51;
+            // 
+            // comboBoxTinhTrangNhap
+            // 
+            this.comboBoxTinhTrangNhap.FormattingEnabled = true;
+            this.comboBoxTinhTrangNhap.Items.AddRange(new object[] {
+            "Chưa nhập",
+            "Đã nhập",
+            "Hủy đơn"});
+            this.comboBoxTinhTrangNhap.Location = new System.Drawing.Point(166, 91);
+            this.comboBoxTinhTrangNhap.Name = "comboBoxTinhTrangNhap";
+            this.comboBoxTinhTrangNhap.Size = new System.Drawing.Size(159, 24);
+            this.comboBoxTinhTrangNhap.TabIndex = 7;
+            // 
+            // numericUpDownTongTien
+            // 
+            this.numericUpDownTongTien.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.numericUpDownTongTien.Increment = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownTongTien.Location = new System.Drawing.Point(166, 64);
+            this.numericUpDownTongTien.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.numericUpDownTongTien.Name = "numericUpDownTongTien";
+            this.numericUpDownTongTien.ReadOnly = true;
+            this.numericUpDownTongTien.Size = new System.Drawing.Size(159, 22);
+            this.numericUpDownTongTien.TabIndex = 5;
+            this.numericUpDownTongTien.ThousandsSeparator = true;
+            // 
+            // dateTimePickerNgayLapDN
+            // 
+            this.dateTimePickerNgayLapDN.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dateTimePickerNgayLapDN.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerNgayLapDN.Location = new System.Drawing.Point(168, 35);
+            this.dateTimePickerNgayLapDN.Name = "dateTimePickerNgayLapDN";
+            this.dateTimePickerNgayLapDN.Size = new System.Drawing.Size(120, 22);
+            this.dateTimePickerNgayLapDN.TabIndex = 3;
+            // 
+            // textBoxGhiChu
+            // 
+            this.textBoxGhiChu.Location = new System.Drawing.Point(435, 43);
+            this.textBoxGhiChu.Multiline = true;
+            this.textBoxGhiChu.Name = "textBoxGhiChu";
+            this.textBoxGhiChu.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxGhiChu.Size = new System.Drawing.Size(257, 78);
+            this.textBoxGhiChu.TabIndex = 11;
             // 
             // buttonHuy
             // 
@@ -226,6 +267,7 @@
             // 
             this.textBoxMaNguoiDung.Location = new System.Drawing.Point(479, 3);
             this.textBoxMaNguoiDung.Name = "textBoxMaNguoiDung";
+            this.textBoxMaNguoiDung.ReadOnly = true;
             this.textBoxMaNguoiDung.Size = new System.Drawing.Size(213, 22);
             this.textBoxMaNguoiDung.TabIndex = 9;
             // 
@@ -264,46 +306,6 @@
             this.dataGridViewMain.TabIndex = 45;
             this.dataGridViewMain.CurrentCellChanged += new System.EventHandler(this.dataGridViewMain_CurrentCellChanged);
             // 
-            // dateTimePickerNgayLapDN
-            // 
-            this.dateTimePickerNgayLapDN.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dateTimePickerNgayLapDN.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerNgayLapDN.Location = new System.Drawing.Point(168, 35);
-            this.dateTimePickerNgayLapDN.Name = "dateTimePickerNgayLapDN";
-            this.dateTimePickerNgayLapDN.Size = new System.Drawing.Size(120, 22);
-            this.dateTimePickerNgayLapDN.TabIndex = 3;
-            // 
-            // numericUpDownTongTien
-            // 
-            this.numericUpDownTongTien.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.numericUpDownTongTien.Increment = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownTongTien.Location = new System.Drawing.Point(166, 64);
-            this.numericUpDownTongTien.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.numericUpDownTongTien.Name = "numericUpDownTongTien";
-            this.numericUpDownTongTien.Size = new System.Drawing.Size(159, 22);
-            this.numericUpDownTongTien.TabIndex = 5;
-            this.numericUpDownTongTien.ThousandsSeparator = true;
-            // 
-            // comboBoxTinhTrangNhap
-            // 
-            this.comboBoxTinhTrangNhap.FormattingEnabled = true;
-            this.comboBoxTinhTrangNhap.Items.AddRange(new object[] {
-            "Chưa nhập",
-            "Đã nhập",
-            "Hủy đơn"});
-            this.comboBoxTinhTrangNhap.Location = new System.Drawing.Point(166, 91);
-            this.comboBoxTinhTrangNhap.Name = "comboBoxTinhTrangNhap";
-            this.comboBoxTinhTrangNhap.Size = new System.Drawing.Size(159, 24);
-            this.comboBoxTinhTrangNhap.TabIndex = 7;
-            // 
             // FormDonNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -322,8 +324,8 @@
             this.Load += new System.EventHandler(this.FormDonNhap_Load);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTongTien)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -337,21 +339,21 @@
         private System.Windows.Forms.Button buttonSua;
         private System.Windows.Forms.Button buttonThem;
         private System.Windows.Forms.Label labelNguoiDung;
-        private System.Windows.Forms.TextBox textBoxGhiChu;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Button buttonHuy;
         private System.Windows.Forms.Label labelMaDN;
         private System.Windows.Forms.Button buttonLuu;
         private System.Windows.Forms.TextBox textBoxMaDN;
+        private System.Windows.Forms.DataGridView dataGridViewMain;
+        private System.Windows.Forms.ComboBox comboBoxTinhTrangNhap;
+        private System.Windows.Forms.NumericUpDown numericUpDownTongTien;
+        private System.Windows.Forms.DateTimePicker dateTimePickerNgayLapDN;
+        private System.Windows.Forms.TextBox textBoxGhiChu;
         private System.Windows.Forms.Label labelNgayLapDN;
         private System.Windows.Forms.Label labelTongTien;
         private System.Windows.Forms.Label labelGhiChu;
         private System.Windows.Forms.TextBox textBoxMaNguoiDung;
         private System.Windows.Forms.Label labelMaNguoiDung;
         private System.Windows.Forms.Label labelTinhTrangNhap;
-        private System.Windows.Forms.DataGridView dataGridViewMain;
-        private System.Windows.Forms.DateTimePicker dateTimePickerNgayLapDN;
-        private System.Windows.Forms.NumericUpDown numericUpDownTongTien;
-        private System.Windows.Forms.ComboBox comboBoxTinhTrangNhap;
     }
 }

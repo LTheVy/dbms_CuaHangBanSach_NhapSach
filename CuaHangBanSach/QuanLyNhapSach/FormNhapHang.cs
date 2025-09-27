@@ -11,29 +11,55 @@ using System.Windows.Forms;
 
 namespace QuanLyNhapSach
 {
-    public partial class FormChiTietDonNhap : Form
+    public partial class FormNhapHang : Form
     {
+        BL_DonNhap bL_DonNhap;
         BL_ChiTietDonNhap bL_ChiTietDonNhap;
 
-        private string maSach = "";
-        private string maNCC = "";
-        private string maDN = "";
-
+        string maNguoiDung = "";
+        string maDN = "";
         string errMessage = "";
         bool isAdding = false;
-        public FormChiTietDonNhap(string maSach = "", string maNCC = "", string maDN = "")
+
+        public FormNhapHang()
         {
             InitializeComponent();
-            this.maSach = maSach;
-            this.maNCC = maNCC;
-            this.maDN = maDN;
+            bL_DonNhap = new BL_DonNhap();
+            bL_ChiTietDonNhap = new BL_ChiTietDonNhap();
+
+            maNguoiDung = FormMain.id.ToString();
+
+            if (!bL_DonNhap.themTrong(maNguoiDung, ref maDN, ref errMessage))
+            {
+                MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
-        private void FormChiTietDonNhap_Load(object sender, EventArgs e)
+        public FormNhapHang(string maDN)
         {
+            InitializeComponent();
+            bL_DonNhap = new BL_DonNhap();
             bL_ChiTietDonNhap = new BL_ChiTietDonNhap();
-            labelNguoiDung.Text = "Người dùng: " + FormMain.name + " (" + FormMain.role + ")";
+
+            DataTable dt = bL_DonNhap.layDonNhap(maDN, ref errMessage);
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+                return;
+            }
+            this.maDN = maDN;
+            maNguoiDung = dt.Rows[0]["MaNguoiDung"].ToString();
+            textBoxGhiChu.Text = dt.Rows[0]["GhiChu"].ToString();
+        }
+
+        private void FormNhapHang_Load(object sender, EventArgs e)
+        {
+            textBoxMaDN.Text = maDN;
+            textBoxMaNguoiDung.Text = maNguoiDung;
             isEditing(false);
+            isAdding = false;
             buttonTaiLai_Click(sender, e);
         }
 
@@ -50,7 +76,7 @@ namespace QuanLyNhapSach
                 buttonXoa.Enabled = false;
                 buttonTaiLai.Enabled = false;
 
-                panelMain.Enabled = true;
+                panelChiTiet.Enabled = true;
             }
             else
             {
@@ -63,58 +89,22 @@ namespace QuanLyNhapSach
                 buttonXoa.Enabled = true;
                 buttonTaiLai.Enabled = true;
 
-                panelMain.Enabled = false;
+                panelChiTiet.Enabled = false;
             }
         }
 
         private void buttonTaiLai_Click(object sender, EventArgs e)
         {
-            bL_ChiTietDonNhap = new BL_ChiTietDonNhap();
-            DataTable dt;
-            if (maSach != "")
+            DataTable dt = bL_ChiTietDonNhap.laytheoDonNhap(maDN, ref errMessage);
+            if (dt == null)
             {
-                dt = bL_ChiTietDonNhap.laytheoSach(maSach, ref errMessage);
-                if (dt == null)
-                {
-                    if (errMessage != "")
-                        MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                dataGridViewMain.DataSource = dt;
+                if (errMessage != "")
+                    MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else if (maNCC != "")
-            {
-                dt = bL_ChiTietDonNhap.laytheoNhaCungCap(maNCC, ref errMessage);
-                if (dt == null)
-                {
-                    if (errMessage != "")
-                        MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                dataGridViewMain.DataSource = dt;
-            }
-            else if (maDN != "")
-            {
-                dt = bL_ChiTietDonNhap.laytheoDonNhap(maDN, ref errMessage);
-                if (dt == null)
-                {
-                    if (errMessage != "")
-                        MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                dataGridViewMain.DataSource = dt;
-            }
-            else
-            {
-                dt = bL_ChiTietDonNhap.layTatCa(ref errMessage);
-                if (dt == null)
-                {
-                    if (errMessage != "")
-                        MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                dataGridViewMain.DataSource = dt;
-            }
+            dataGridViewMain.DataSource = dt;
+            dataGridViewMain.ClearSelection();
+            dataGridViewMain.CurrentCell = null;
         }
 
         private void buttonThoat_Click(object sender, EventArgs e)
@@ -122,21 +112,17 @@ namespace QuanLyNhapSach
             Close();
         }
 
-        private void panelMain_LoadDuLieu(
-            string maDN = "",
+        private void panelChiTiet_LoadDuLieu(
             string maSach = "",
             string maNCC = "",
             decimal soLuong = 0,
-            decimal giaNhap = 0,
-            decimal thanhTien = 0
+            decimal giaNhap = 0
             )
         {
-            textBoxMaDN.Text = maDN;
             textBoxMaSach.Text = maSach;
             textBoxMaNCC.Text = maNCC;
             numericUpDownSoLuong.Value = soLuong;
             numericUpDownGiaNhap.Value = giaNhap;
-            numericUpDownThanhTien.Value = thanhTien;
         }
 
         private void dataGridViewMain_CurrentCellChanged(object sender, EventArgs e)
@@ -144,17 +130,15 @@ namespace QuanLyNhapSach
             DataGridViewCell currentCell = dataGridViewMain.CurrentCell;
             if (currentCell == null)
             {
-                panelMain_LoadDuLieu();
+                panelChiTiet_LoadDuLieu();
                 return;
             }
             int currentRow = currentCell.RowIndex;
-            panelMain_LoadDuLieu(
-                dataGridViewMain.Rows[currentRow].Cells["MaDN"].Value.ToString(),
+            panelChiTiet_LoadDuLieu(
                 dataGridViewMain.Rows[currentRow].Cells["MaSach"].Value.ToString(),
                 dataGridViewMain.Rows[currentRow].Cells["MaNCC"].Value.ToString(),
                 Convert.ToDecimal(dataGridViewMain.Rows[currentRow].Cells["SoLuong"].Value),
-                Convert.ToDecimal(dataGridViewMain.Rows[currentRow].Cells["GiaNhap"].Value),
-                Convert.ToDecimal(dataGridViewMain.Rows[currentRow].Cells["ThanhTien"].Value)
+                Convert.ToDecimal(dataGridViewMain.Rows[currentRow].Cells["GiaNhap"].Value)
                 );
         }
 
@@ -163,7 +147,7 @@ namespace QuanLyNhapSach
             if (isAdding)
             {
                 if (!bL_ChiTietDonNhap.them(
-                    textBoxMaDN.Text,
+                    maDN,
                     textBoxMaSach.Text,
                     textBoxMaNCC.Text,
                     numericUpDownSoLuong.Value,
@@ -174,9 +158,8 @@ namespace QuanLyNhapSach
                     MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                MessageBox.Show("Thêm chi tiết đơn nhập thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                isEditing(false);
                 buttonTaiLai_Click(sender, e);
+                isEditing(false);
                 isAdding = false;
             }
             else
@@ -184,13 +167,11 @@ namespace QuanLyNhapSach
                 DataGridViewCell currentCell = dataGridViewMain.CurrentCell;
                 int currentRow = currentCell.RowIndex;
 
-                string maDNCu = dataGridViewMain.Rows[currentRow].Cells["MaDN"].Value.ToString();
                 string maSachCu = dataGridViewMain.Rows[currentRow].Cells["MaSach"].Value.ToString();
                 string MaNCCCu = dataGridViewMain.Rows[currentRow].Cells["MaNCC"].Value.ToString();
 
                 if (!bL_ChiTietDonNhap.sua(
-                    maDNCu,
-                    textBoxMaDN.Text,
+                    maDN,
                     maSachCu,
                     textBoxMaSach.Text,
                     MaNCCCu,
@@ -203,9 +184,8 @@ namespace QuanLyNhapSach
                     MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                MessageBox.Show("Sửa chi tiết đơn nhập thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                isEditing(false);
                 buttonTaiLai_Click(sender, e);
+                isEditing(false);
             }
         }
 
@@ -224,7 +204,7 @@ namespace QuanLyNhapSach
         {
             dataGridViewMain.ClearSelection();
             dataGridViewMain.CurrentCell = null;
-            panelMain_LoadDuLieu();
+            panelChiTiet_LoadDuLieu();
             isEditing(true);
             isAdding = true;
         }
@@ -256,7 +236,7 @@ namespace QuanLyNhapSach
 
             string errMessage = "";
             if (!bL_ChiTietDonNhap.xoa(
-                textBoxMaDN.Text,
+                maDN,
                 textBoxMaSach.Text,
                 textBoxMaNCC.Text,
                 ref errMessage
@@ -266,15 +246,6 @@ namespace QuanLyNhapSach
                 return;
             }
             buttonTaiLai_Click(sender, e);
-        }
-
-        private void buttonChonMaDN_Click(object sender, EventArgs e)
-        {
-            FormChon formChon = new FormChon("DN");
-            if (formChon.ShowDialog() == DialogResult.OK)
-            {
-                textBoxMaDN.Text = formChon.maChon;
-            }
         }
 
         private void buttonChonMaSach_Click(object sender, EventArgs e)
@@ -293,6 +264,17 @@ namespace QuanLyNhapSach
             {
                 textBoxMaNCC.Text = formChon.maChon;
             }
+        }
+
+        private void buttonLuuGhiChu_Click(object sender, EventArgs e)
+        {
+            if (!bL_DonNhap.suaGhiChu(maDN, textBoxGhiChu.Text, ref errMessage))
+            {
+                MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            MessageBox.Show("Lưu ghi chú thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            buttonTaiLai_Click(sender, e);
         }
     }
 }

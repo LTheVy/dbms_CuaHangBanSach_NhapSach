@@ -88,22 +88,25 @@
     <Compile Include="FormNhaCungCap.Designer.cs">
       <DependentUpon>FormNhaCungCap.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormNhapHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNhapHang.Designer.cs">
+      <DependentUpon>FormNhapHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSach.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormSach.Designer.cs">
       <DependentUpon>FormSach.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormThemDN.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormThemDN.Designer.cs">
-      <DependentUpon>FormThemDN.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormChiTietDonNhap.resx">
       <DependentUpon>FormChiTietDonNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChon.resx">
+      <DependentUpon>FormChon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDonNhap.resx">
       <DependentUpon>FormDonNhap.cs</DependentUpon>
@@ -117,11 +120,11 @@
     <EmbeddedResource Include="FormNhaCungCap.resx">
       <DependentUpon>FormNhaCungCap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormNhapHang.resx">
+      <DependentUpon>FormNhapHang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormSach.resx">
       <DependentUpon>FormSach.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormThemDN.resx">
-      <DependentUpon>FormThemDN.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

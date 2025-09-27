@@ -45,6 +45,8 @@ namespace QuanLyNhapSach
                 labelVaiTro.Text = "Vai trò:" + role;
                 labelVaiTro.Visible = true;
                 tabControlMain.Visible = true;
+
+                panelChucNangNV.Visible = true;
             }
             else
             {
@@ -52,6 +54,8 @@ namespace QuanLyNhapSach
                 labelMaSo.Visible = false;
                 labelVaiTro.Visible = false;
                 tabControlMain.Visible = false;
+
+                panelChucNangNV.Visible = false;
             }
         }
 
@@ -81,12 +85,17 @@ namespace QuanLyNhapSach
             dangNhapToolStripMenuItem.Enabled = true;
             dangXuatToolStripMenuItem.Enabled = false;
             EnableFormMain(false);
+            for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+            {
+                if (Application.OpenForms[i] != this)
+                    Application.OpenForms[i].Close();
+            }
             MessageBox.Show("Đã đăng xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void loadDonNhap()
         {
-            DataTable dt = new BL_DonNhap().LayDuLieu(ref errMessage);
+            DataTable dt = new BL_DonNhap().layDuLieu(ref errMessage);
             if (dt == null)
             {
                 if (errMessage != "")
@@ -94,9 +103,11 @@ namespace QuanLyNhapSach
                 return;
             }
             dataGridViewDonNhap.DataSource = dt;
+            dataGridViewDonNhap.ClearSelection();
+            dataGridViewDonNhap.CurrentCell = null;
         }
 
-        private void loadKhoSach()
+        private void loadSach()
         {
             DataTable dt = new BL_Sach().layDuLieu(ref errMessage);
             if (dt == null)
@@ -106,6 +117,8 @@ namespace QuanLyNhapSach
                 return;
             }
             dataGridViewSach.DataSource = dt;
+            dataGridViewSach.ClearSelection();
+            dataGridViewSach.CurrentCell = null;
         }
 
         private void loadNhaCungCap()
@@ -118,6 +131,8 @@ namespace QuanLyNhapSach
                 return;
             }
             dataGridViewNhaCungCap.DataSource = dt;
+            dataGridViewNhaCungCap.ClearSelection();
+            dataGridViewNhaCungCap.CurrentCell = null;
         }
 
         private void dataGridViewDonNhap_VisibleChanged(object sender, EventArgs e)
@@ -127,7 +142,7 @@ namespace QuanLyNhapSach
 
         private void dataGridViewKhoSach_VisibleChanged(object sender, EventArgs e)
         {
-            if (isLogin) loadKhoSach();
+            if (isLogin) loadSach();
         }
 
         private void dataGridViewNhaCungCap_VisibleChanged(object sender, EventArgs e)
@@ -139,12 +154,12 @@ namespace QuanLyNhapSach
         {
             FormSach formSach = new FormSach();
             formSach.Show();
-            loadKhoSach();
+            loadSach();
         }
 
         private void buttonSachTaiLai_Click(object sender, EventArgs e)
         {
-            loadKhoSach();
+            loadSach();
         }
 
         private void buttonSachXemChiTiet_Click(object sender, EventArgs e)
@@ -215,6 +230,30 @@ namespace QuanLyNhapSach
             }
             formChiTietDonNhap = new FormChiTietDonNhap("", "", maDN);
             formChiTietDonNhap.Show();
+        }
+
+        private void buttonNhapHang_Click(object sender, EventArgs e)
+        {
+            FormNhapHang formNhapHang = new FormNhapHang();
+            formNhapHang.Show();
+        }
+
+        private void buttonChinhDN_Click(object sender, EventArgs e)
+        {
+            FormNhapHang formNhapHang = new FormNhapHang(textBoxMaDN.Text);
+            formNhapHang.Show();
+        }
+
+        private void dataGridViewDonNhap_CurrentCellChanged(object sender, EventArgs e)
+        {
+            DataGridViewCell currentCell = dataGridViewDonNhap.CurrentCell;
+            if (currentCell == null)
+            {
+                textBoxMaDN.Text = "";
+                return;
+            }
+            int currentRow = currentCell.RowIndex;
+            textBoxMaDN.Text = dataGridViewDonNhap.Rows[currentRow].Cells["MaDN"].Value.ToString();
         }
     }
 }

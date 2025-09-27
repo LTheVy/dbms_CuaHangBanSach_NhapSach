@@ -51,6 +51,11 @@
             this.buttonDNXemChiTiet = new System.Windows.Forms.Button();
             this.buttonDNChinhSua = new System.Windows.Forms.Button();
             this.dataGridViewDonNhap = new System.Windows.Forms.DataGridView();
+            this.buttonNhapHang = new System.Windows.Forms.Button();
+            this.buttonChinhDN = new System.Windows.Forms.Button();
+            this.labelMaDN = new System.Windows.Forms.Label();
+            this.textBoxMaDN = new System.Windows.Forms.TextBox();
+            this.panelChucNangNV = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabSach.SuspendLayout();
@@ -59,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNhaCungCap)).BeginInit();
             this.tabDonNhap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDonNhap)).BeginInit();
+            this.panelChucNangNV.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelTen
@@ -134,10 +140,10 @@
             this.tabControlMain.Controls.Add(this.tabSach);
             this.tabControlMain.Controls.Add(this.tabNhaCungCap);
             this.tabControlMain.Controls.Add(this.tabDonNhap);
-            this.tabControlMain.Location = new System.Drawing.Point(15, 100);
+            this.tabControlMain.Location = new System.Drawing.Point(15, 137);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(922, 465);
+            this.tabControlMain.Size = new System.Drawing.Size(922, 428);
             this.tabControlMain.TabIndex = 4;
             // 
             // tabSach
@@ -149,7 +155,7 @@
             this.tabSach.Location = new System.Drawing.Point(4, 25);
             this.tabSach.Name = "tabSach";
             this.tabSach.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSach.Size = new System.Drawing.Size(914, 436);
+            this.tabSach.Size = new System.Drawing.Size(914, 399);
             this.tabSach.TabIndex = 1;
             this.tabSach.Text = "Kho sách";
             this.tabSach.UseVisualStyleBackColor = true;
@@ -157,7 +163,7 @@
             // buttonSachTaiLai
             // 
             this.buttonSachTaiLai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSachTaiLai.Location = new System.Drawing.Point(815, 393);
+            this.buttonSachTaiLai.Location = new System.Drawing.Point(815, 356);
             this.buttonSachTaiLai.Name = "buttonSachTaiLai";
             this.buttonSachTaiLai.Size = new System.Drawing.Size(93, 40);
             this.buttonSachTaiLai.TabIndex = 4;
@@ -168,7 +174,7 @@
             // buttonSachXemChiTiet
             // 
             this.buttonSachXemChiTiet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSachXemChiTiet.Location = new System.Drawing.Point(125, 393);
+            this.buttonSachXemChiTiet.Location = new System.Drawing.Point(125, 356);
             this.buttonSachXemChiTiet.Name = "buttonSachXemChiTiet";
             this.buttonSachXemChiTiet.Size = new System.Drawing.Size(93, 40);
             this.buttonSachXemChiTiet.TabIndex = 3;
@@ -179,7 +185,7 @@
             // buttonSachChinhSua
             // 
             this.buttonSachChinhSua.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSachChinhSua.Location = new System.Drawing.Point(6, 393);
+            this.buttonSachChinhSua.Location = new System.Drawing.Point(6, 356);
             this.buttonSachChinhSua.Name = "buttonSachChinhSua";
             this.buttonSachChinhSua.Size = new System.Drawing.Size(93, 40);
             this.buttonSachChinhSua.TabIndex = 2;
@@ -196,11 +202,12 @@
             this.dataGridViewSach.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSach.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewSach.MultiSelect = false;
             this.dataGridViewSach.Name = "dataGridViewSach";
             this.dataGridViewSach.ReadOnly = true;
             this.dataGridViewSach.RowHeadersWidth = 51;
             this.dataGridViewSach.RowTemplate.Height = 24;
-            this.dataGridViewSach.Size = new System.Drawing.Size(902, 381);
+            this.dataGridViewSach.Size = new System.Drawing.Size(902, 344);
             this.dataGridViewSach.TabIndex = 1;
             this.dataGridViewSach.VisibleChanged += new System.EventHandler(this.dataGridViewKhoSach_VisibleChanged);
             // 
@@ -212,7 +219,7 @@
             this.tabNhaCungCap.Controls.Add(this.dataGridViewNhaCungCap);
             this.tabNhaCungCap.Location = new System.Drawing.Point(4, 25);
             this.tabNhaCungCap.Name = "tabNhaCungCap";
-            this.tabNhaCungCap.Size = new System.Drawing.Size(914, 436);
+            this.tabNhaCungCap.Size = new System.Drawing.Size(914, 399);
             this.tabNhaCungCap.TabIndex = 2;
             this.tabNhaCungCap.Text = "Nhà cung cấp";
             this.tabNhaCungCap.UseVisualStyleBackColor = true;
@@ -220,7 +227,7 @@
             // buttonNCCTaiLai
             // 
             this.buttonNCCTaiLai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNCCTaiLai.Location = new System.Drawing.Point(815, 393);
+            this.buttonNCCTaiLai.Location = new System.Drawing.Point(815, 356);
             this.buttonNCCTaiLai.Name = "buttonNCCTaiLai";
             this.buttonNCCTaiLai.Size = new System.Drawing.Size(93, 40);
             this.buttonNCCTaiLai.TabIndex = 7;
@@ -231,7 +238,7 @@
             // buttonNCCXemChiTiet
             // 
             this.buttonNCCXemChiTiet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonNCCXemChiTiet.Location = new System.Drawing.Point(125, 393);
+            this.buttonNCCXemChiTiet.Location = new System.Drawing.Point(125, 356);
             this.buttonNCCXemChiTiet.Name = "buttonNCCXemChiTiet";
             this.buttonNCCXemChiTiet.Size = new System.Drawing.Size(93, 40);
             this.buttonNCCXemChiTiet.TabIndex = 6;
@@ -242,7 +249,7 @@
             // buttonNCCChinhSua
             // 
             this.buttonNCCChinhSua.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonNCCChinhSua.Location = new System.Drawing.Point(6, 393);
+            this.buttonNCCChinhSua.Location = new System.Drawing.Point(6, 356);
             this.buttonNCCChinhSua.Name = "buttonNCCChinhSua";
             this.buttonNCCChinhSua.Size = new System.Drawing.Size(93, 40);
             this.buttonNCCChinhSua.TabIndex = 5;
@@ -259,11 +266,12 @@
             this.dataGridViewNhaCungCap.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewNhaCungCap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewNhaCungCap.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewNhaCungCap.MultiSelect = false;
             this.dataGridViewNhaCungCap.Name = "dataGridViewNhaCungCap";
             this.dataGridViewNhaCungCap.ReadOnly = true;
             this.dataGridViewNhaCungCap.RowHeadersWidth = 51;
             this.dataGridViewNhaCungCap.RowTemplate.Height = 24;
-            this.dataGridViewNhaCungCap.Size = new System.Drawing.Size(902, 381);
+            this.dataGridViewNhaCungCap.Size = new System.Drawing.Size(902, 344);
             this.dataGridViewNhaCungCap.TabIndex = 2;
             this.dataGridViewNhaCungCap.VisibleChanged += new System.EventHandler(this.dataGridViewNhaCungCap_VisibleChanged);
             // 
@@ -276,7 +284,7 @@
             this.tabDonNhap.Location = new System.Drawing.Point(4, 25);
             this.tabDonNhap.Name = "tabDonNhap";
             this.tabDonNhap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDonNhap.Size = new System.Drawing.Size(914, 436);
+            this.tabDonNhap.Size = new System.Drawing.Size(914, 399);
             this.tabDonNhap.TabIndex = 0;
             this.tabDonNhap.Text = "Đơn nhập sách";
             this.tabDonNhap.UseVisualStyleBackColor = true;
@@ -284,7 +292,7 @@
             // buttonDNTaiLai
             // 
             this.buttonDNTaiLai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDNTaiLai.Location = new System.Drawing.Point(815, 393);
+            this.buttonDNTaiLai.Location = new System.Drawing.Point(815, 356);
             this.buttonDNTaiLai.Name = "buttonDNTaiLai";
             this.buttonDNTaiLai.Size = new System.Drawing.Size(93, 40);
             this.buttonDNTaiLai.TabIndex = 10;
@@ -295,7 +303,7 @@
             // buttonDNXemChiTiet
             // 
             this.buttonDNXemChiTiet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDNXemChiTiet.Location = new System.Drawing.Point(125, 393);
+            this.buttonDNXemChiTiet.Location = new System.Drawing.Point(125, 356);
             this.buttonDNXemChiTiet.Name = "buttonDNXemChiTiet";
             this.buttonDNXemChiTiet.Size = new System.Drawing.Size(93, 40);
             this.buttonDNXemChiTiet.TabIndex = 9;
@@ -306,7 +314,7 @@
             // buttonDNChinhSua
             // 
             this.buttonDNChinhSua.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDNChinhSua.Location = new System.Drawing.Point(6, 393);
+            this.buttonDNChinhSua.Location = new System.Drawing.Point(6, 356);
             this.buttonDNChinhSua.Name = "buttonDNChinhSua";
             this.buttonDNChinhSua.Size = new System.Drawing.Size(93, 40);
             this.buttonDNChinhSua.TabIndex = 8;
@@ -323,19 +331,72 @@
             this.dataGridViewDonNhap.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewDonNhap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDonNhap.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewDonNhap.MultiSelect = false;
             this.dataGridViewDonNhap.Name = "dataGridViewDonNhap";
             this.dataGridViewDonNhap.ReadOnly = true;
             this.dataGridViewDonNhap.RowHeadersWidth = 51;
             this.dataGridViewDonNhap.RowTemplate.Height = 24;
-            this.dataGridViewDonNhap.Size = new System.Drawing.Size(902, 381);
+            this.dataGridViewDonNhap.Size = new System.Drawing.Size(902, 344);
             this.dataGridViewDonNhap.TabIndex = 0;
+            this.dataGridViewDonNhap.CurrentCellChanged += new System.EventHandler(this.dataGridViewDonNhap_CurrentCellChanged);
             this.dataGridViewDonNhap.VisibleChanged += new System.EventHandler(this.dataGridViewDonNhap_VisibleChanged);
+            // 
+            // buttonNhapHang
+            // 
+            this.buttonNhapHang.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.buttonNhapHang.Location = new System.Drawing.Point(168, 3);
+            this.buttonNhapHang.Name = "buttonNhapHang";
+            this.buttonNhapHang.Size = new System.Drawing.Size(118, 41);
+            this.buttonNhapHang.TabIndex = 5;
+            this.buttonNhapHang.Text = "Nhập đơn mới";
+            this.buttonNhapHang.UseVisualStyleBackColor = false;
+            this.buttonNhapHang.Click += new System.EventHandler(this.buttonNhapHang_Click);
+            // 
+            // buttonChinhDN
+            // 
+            this.buttonChinhDN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.buttonChinhDN.Location = new System.Drawing.Point(27, 62);
+            this.buttonChinhDN.Name = "buttonChinhDN";
+            this.buttonChinhDN.Size = new System.Drawing.Size(118, 41);
+            this.buttonChinhDN.TabIndex = 6;
+            this.buttonChinhDN.Text = "Chỉnh đơn";
+            this.buttonChinhDN.UseVisualStyleBackColor = false;
+            this.buttonChinhDN.Click += new System.EventHandler(this.buttonChinhDN_Click);
+            // 
+            // labelMaDN
+            // 
+            this.labelMaDN.AutoSize = true;
+            this.labelMaDN.Location = new System.Drawing.Point(151, 74);
+            this.labelMaDN.Name = "labelMaDN";
+            this.labelMaDN.Size = new System.Drawing.Size(29, 16);
+            this.labelMaDN.TabIndex = 7;
+            this.labelMaDN.Text = "Mã:";
+            // 
+            // textBoxMaDN
+            // 
+            this.textBoxMaDN.Location = new System.Drawing.Point(186, 71);
+            this.textBoxMaDN.Name = "textBoxMaDN";
+            this.textBoxMaDN.Size = new System.Drawing.Size(100, 22);
+            this.textBoxMaDN.TabIndex = 8;
+            // 
+            // panelChucNangNV
+            // 
+            this.panelChucNangNV.BackColor = System.Drawing.Color.Transparent;
+            this.panelChucNangNV.Controls.Add(this.buttonNhapHang);
+            this.panelChucNangNV.Controls.Add(this.textBoxMaDN);
+            this.panelChucNangNV.Controls.Add(this.buttonChinhDN);
+            this.panelChucNangNV.Controls.Add(this.labelMaDN);
+            this.panelChucNangNV.Location = new System.Drawing.Point(644, 31);
+            this.panelChucNangNV.Name = "panelChucNangNV";
+            this.panelChucNangNV.Size = new System.Drawing.Size(289, 125);
+            this.panelChucNangNV.TabIndex = 9;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(949, 577);
+            this.Controls.Add(this.panelChucNangNV);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.labelVaiTro);
             this.Controls.Add(this.labelMaSo);
@@ -354,6 +415,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNhaCungCap)).EndInit();
             this.tabDonNhap.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDonNhap)).EndInit();
+            this.panelChucNangNV.ResumeLayout(false);
+            this.panelChucNangNV.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -384,6 +447,11 @@
         private System.Windows.Forms.Button buttonDNTaiLai;
         private System.Windows.Forms.Button buttonDNXemChiTiet;
         private System.Windows.Forms.Button buttonDNChinhSua;
+        private System.Windows.Forms.Button buttonNhapHang;
+        private System.Windows.Forms.Button buttonChinhDN;
+        private System.Windows.Forms.Label labelMaDN;
+        private System.Windows.Forms.TextBox textBoxMaDN;
+        private System.Windows.Forms.Panel panelChucNangNV;
     }
 }
 

@@ -25,7 +25,7 @@ CREATE OR ALTER VIEW vw_DanhSachDonNhap AS
 SELECT
 	dn.MaDN,
 	dn.NgayLapDN,
-	dbo.fn_TongSoLuongDN(dn.MaDN) AS TongSoLuong,
+	dbo.fn_TongSoLuongDN(dn.MaDN) AS TongSoSach,
 	dn.TongTien,
 	dn.TinhTrangNhap,
 	dn.MaNguoiDung,
@@ -40,15 +40,28 @@ CREATE OR ALTER VIEW vw_DanhSachDonNhapGoc AS
 SELECT * FROM DonNhap
 
 
+--Function: Lấy một đơn nhập
+GO
+CREATE OR ALTER FUNCTION fn_DonNhap(@MaDN INT)
+RETURNS TABLE
+AS
+RETURN(
+	SELECT *
+	FROM DonNhap
+	WHERE MaDN = @MaDN
+);
+
+
 --Procedure: Thêm đơn nhập
 GO
-CREATE PROCEDURE sp_ThemDonNhap
+CREATE OR ALTER PROCEDURE sp_ThemDonNhap
     @NgayLapDN DATE = NULL,
     @TongTien DECIMAL(18,2) = 0,
-    @TinhTrangNhap NVARCHAR(50) = NULL,
+    @TinhTrangNhap NVARCHAR(50) = N'Chưa nhập',
     @MaNguoiDung INT,
-    @GhiChu NVARCHAR(500),
-    @ErrorMessage NVARCHAR(500) OUTPUT
+    @GhiChu NVARCHAR(500) = NULL,
+    @ErrorMessage NVARCHAR(500) OUTPUT,
+	@MaDN INT OUTPUT
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -69,7 +82,9 @@ BEGIN
             @GhiChu
         );
 
+		SET @MaDN = SCOPE_IDENTITY();
         SET @ErrorMessage = N'';
+
         RETURN 1;
     END TRY
     BEGIN CATCH
@@ -81,7 +96,7 @@ END
 
 --Procedure: Sửa đơn nhập
 GO
-CREATE PROCEDURE sp_SuaDonNhap
+CREATE OR ALTER PROCEDURE sp_SuaDonNhap
     @MaDN INT,
     @NgayLapDN DATE = NULL,
     @TongTien DECIMAL(18,2) = 0,
@@ -129,7 +144,7 @@ END
 
 --Procedure: Xóa đơn nhập
 GO
-CREATE PROCEDURE sp_XoaDonNhap
+CREATE OR ALTER PROCEDURE sp_XoaDonNhap
     @MaDN INT,
     @ErrorMessage NVARCHAR(500) OUTPUT
 AS
@@ -145,6 +160,39 @@ BEGIN
 
     BEGIN TRY
         DELETE FROM DonNhap
+        WHERE MaDN = @MaDN;
+
+        SET @ErrorMessage = N'';
+        RETURN 1;
+    END TRY
+    BEGIN CATCH
+        SET @ErrorMessage = ERROR_MESSAGE();
+        RETURN 0;
+    END CATCH
+END
+
+
+--Procedure: Sửa ghi chú
+GO
+CREATE OR ALTER PROCEDURE sp_SuaGhiChuDonNhap
+	@MaDN INT,
+	@GhiChu NVARCHAR(500) = N'',
+	@ErrorMessage NVARCHAR(500) OUTPUT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Kiểm tra MaDN tồn tại
+    IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
+    BEGIN
+        SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
+        RETURN 0;
+    END
+	
+	BEGIN TRY
+        UPDATE DonNhap
+        SET
+            GhiChu = @GhiChu
         WHERE MaDN = @MaDN;
 
         SET @ErrorMessage = N'';

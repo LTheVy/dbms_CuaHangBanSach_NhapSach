@@ -54,3 +54,248 @@ FROM ChiTietDonNhap ctdn
 JOIN DonNhap dn ON dn.MaDN = ctdn.MaDN
 JOIN Sach ON Sach.MaSach = ctdn.MaSach
 JOIN NhaCungCap ncc ON ncc.MaNCC = ctdn.MaNCC;
+
+
+--Procedure: Thêm chi tiết đơn nhập
+GO
+CREATE OR ALTER PROCEDURE sp_ThemChiTietDonNhap
+    @MaDN INT,
+    @MaSach INT,
+    @MaNCC INT,
+    @SoLuong INT,
+    @GiaNhap DECIMAL(18,2),
+	@ThanhTien DECIMAL(18,2) = 0,
+    @ErrorMessage NVARCHAR(500) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- Kiểm tra MaDN tồn tại
+        IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
+        BEGIN
+            SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Kiểm tra MaSach tồn tại
+        IF NOT EXISTS (SELECT 1 FROM Sach WHERE MaSach = @MaSach)
+        BEGIN
+            SET @ErrorMessage = N'Mã sách không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Kiểm tra MaNCC tồn tại
+        IF NOT EXISTS (SELECT 1 FROM NhaCungCap WHERE MaNCC = @MaNCC)
+        BEGIN
+            SET @ErrorMessage = N'Mã nhà cung cấp không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        INSERT INTO ChiTietDonNhap (MaDN, MaSach, MaNCC, SoLuong, GiaNhap, ThanhTien)
+        VALUES (@MaDN, @MaSach, @MaNCC, @SoLuong, @GiaNhap, @ThanhTien);
+
+        SET @ErrorMessage = N'';
+        COMMIT;
+        RETURN 1;
+    END TRY
+    BEGIN CATCH
+        SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+        RETURN 0;
+    END CATCH
+END
+
+
+--Procedure: Sửa chi tiết đơn nhập
+GO
+CREATE OR ALTER PROCEDURE sp_SuaChiTietDonNhap
+    @MaDNCu INT,
+	@MaDNMoi INT,
+    @MaSachCu INT,
+	@MaSachMoi INT,
+    @MaNCCCu INT,
+	@MaNCCMoi INT,
+    @SoLuong INT,
+    @GiaNhap DECIMAL(18,2),
+	@ThanhTien DECIMAL(18,2) = 0,
+    @ErrorMessage NVARCHAR(500) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- Kiểm tra bản ghi ChiTietDonNhap tồn tại
+        IF NOT EXISTS (SELECT 1 FROM ChiTietDonNhap WHERE MaDN = @MaDNCu AND MaSach = @MaSachCu AND MaNCC = @MaNCCCu)
+        BEGIN
+            SET @ErrorMessage = N'Bản ghi chi tiết đơn nhập không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Kiểm tra MaDN tồn tại
+        IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDNMoi)
+        BEGIN
+            SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Kiểm tra MaSach tồn tại
+        IF NOT EXISTS (SELECT 1 FROM Sach WHERE MaSach = @MaSachMoi)
+        BEGIN
+            SET @ErrorMessage = N'Mã sách không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Kiểm tra MaNCC tồn tại
+        IF NOT EXISTS (SELECT 1 FROM NhaCungCap WHERE MaNCC = @MaNCCMoi)
+        BEGIN
+            SET @ErrorMessage = N'Mã nhà cung cấp không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Cập nhật ChiTietDonNhap
+        UPDATE ChiTietDonNhap
+        SET	MaDN = @MaDNMoi,
+			MaSach = @MaSachMoi,
+			MaNCC = @MaNCCMoi,
+			SoLuong = @SoLuong,
+            GiaNhap = @GiaNhap,
+            ThanhTien = @ThanhTien
+        WHERE MaDN = @MaDNCu AND MaSach = @MaSachCu AND MaNCC = @MaNCCCu;
+
+        SET @ErrorMessage = N'';
+        COMMIT;
+        RETURN 1;
+    END TRY
+    BEGIN CATCH
+        SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+        RETURN 0;
+    END CATCH
+END
+
+
+
+--Procedure: Xóa chi tiết đơn nhập
+GO
+CREATE OR ALTER PROCEDURE sp_XoaChiTietDonNhap
+    @MaDN INT,
+    @MaSach INT,
+    @MaNCC INT,
+    @ErrorMessage NVARCHAR(500) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- Kiểm tra bản ghi ChiTietDonNhap tồn tại
+        IF NOT EXISTS (SELECT 1 FROM ChiTietDonNhap WHERE MaDN = @MaDN AND MaSach = @MaSach AND MaNCC = @MaNCC)
+        BEGIN
+            SET @ErrorMessage = N'Bản ghi chi tiết đơn nhập không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Xóa bản ghi trong ChiTietDonNhap
+        DELETE FROM ChiTietDonNhap
+        WHERE MaDN = @MaDN AND MaSach = @MaSach AND MaNCC = @MaNCC;
+
+        SET @ErrorMessage = N'';
+        COMMIT;
+        RETURN 1;
+    END TRY
+    BEGIN CATCH
+        SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+        RETURN 0;
+    END CATCH
+END
+
+
+--Procedure: Sửa thông tin đơn nhập
+GO
+CREATE OR ALTER PROCEDURE sp_SuaThongTinNhapHang
+    @MaDN INT,
+    @MaSachCu INT,
+	@MaSachMoi INT,
+    @MaNCCCu INT,
+	@MaNCCMoi INT,
+    @SoLuong INT,
+    @GiaNhap DECIMAL(18,2),
+	@ThanhTien DECIMAL(18,2) = 0,
+    @ErrorMessage NVARCHAR(500) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- Kiểm tra bản ghi ChiTietDonNhap tồn tại
+        IF NOT EXISTS (SELECT 1 FROM ChiTietDonNhap WHERE MaDN = @MaDN AND MaSach = @MaSachCu AND MaNCC = @MaNCCCu)
+        BEGIN
+            SET @ErrorMessage = N'Bản ghi chi tiết đơn nhập không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Kiểm tra MaDN tồn tại
+        IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
+        BEGIN
+            SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Kiểm tra MaSach tồn tại
+        IF NOT EXISTS (SELECT 1 FROM Sach WHERE MaSach = @MaSachMoi)
+        BEGIN
+            SET @ErrorMessage = N'Mã sách không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Kiểm tra MaNCC tồn tại
+        IF NOT EXISTS (SELECT 1 FROM NhaCungCap WHERE MaNCC = @MaNCCMoi)
+        BEGIN
+            SET @ErrorMessage = N'Mã nhà cung cấp không tồn tại.';
+            ROLLBACK;
+            RETURN 0;
+        END
+
+        -- Cập nhật ChiTietDonNhap
+        UPDATE ChiTietDonNhap
+        SET MaSach = @MaSachMoi,
+			MaNCC = @MaNCCMoi,
+			SoLuong = @SoLuong,
+            GiaNhap = @GiaNhap,
+            ThanhTien = @ThanhTien
+        WHERE MaDN = @MaDN AND MaSach = @MaSachCu AND MaNCC = @MaNCCCu;
+
+        SET @ErrorMessage = N'';
+        COMMIT;
+        RETURN 1;
+    END TRY
+    BEGIN CATCH
+        SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+        RETURN 0;
+    END CATCH
+END

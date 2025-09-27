@@ -42,6 +42,8 @@ namespace QuanLyNhapSach
 
                 buttonXoa.Enabled = false;
                 buttonTaiLai.Enabled = false;
+
+                panelMain.Enabled = true;
             }
             else
             {
@@ -53,6 +55,8 @@ namespace QuanLyNhapSach
 
                 buttonXoa.Enabled = true;
                 buttonTaiLai.Enabled = true;
+
+                panelMain.Enabled = false;
             }
         }
 
@@ -134,11 +138,6 @@ namespace QuanLyNhapSach
             }
             else
             {
-                if (dataGridViewMain.CurrentCell == null)
-                {
-                    MessageBox.Show("Vui lòng chọn dữ liệu để sửa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
                 if (!bL_DonNhap.sua(
                     textBoxMaDN.Text,
                     dateTimePickerNgayLapDN.Value,
