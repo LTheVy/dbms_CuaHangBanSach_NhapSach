@@ -11,15 +11,13 @@ namespace QuanLyNhapSach.Business_Layer
 {
     internal class BL_DangNhap
     {
-        DBMain db = null;
+        DBMain db;
 
-        public BL_DangNhap()
-        {
-            db = new DBMain();
-        }
+        public BL_DangNhap() { }
 
         public bool UserLogin(string username, string password, ref int id, ref string name, ref string role, ref string message, ref string errMessage)
         {
+            db = new DBMain();
             bool result = false;
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "sp_DangNhap";

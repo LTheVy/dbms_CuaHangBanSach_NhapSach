@@ -1,4 +1,5 @@
 ﻿using QuanLyNhapSach.Business_Layer;
+using QuanLyNhapSach.Database_Layer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,6 +40,10 @@ namespace QuanLyNhapSach
         {
             string username = textBoxTenDangNhap.Text;
             string password = textBoxMatKhau.Text;
+
+            DBMain.user_id = username;
+            DBMain.user_password = password;
+
             if (bL_DangNhap.UserLogin(username, password, ref id, ref name, ref role, ref message, ref errMessage))
             {
                 FormMain.id = id;

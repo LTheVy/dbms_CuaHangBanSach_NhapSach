@@ -10,7 +10,14 @@ namespace QuanLyNhapSach.Database_Layer
 {
     internal class DBMain
     {
-        string ConnString = "Data Source=LUNHELE;Initial Catalog=CuaHangBanSach;User ID=sa;Password=1234;TrustServerCertificate=True";
+        public static string user_id = "";
+        public static string user_password = "";
+
+        //string ConnString = "Data Source=LUNHELE;Initial Catalog=CuaHangBanSach;User ID=sa;Password=1234;TrustServerCertificate=True";
+
+        string ConnString = "Data Source=LUNHELE;Initial Catalog=CuaHangBanSach;" +
+            "User ID=" + user_id + ";Password=" + user_password + 
+            ";TrustServerCertificate=True";
         SqlConnection conn = null;
         SqlDataAdapter da = null;
 
