@@ -182,6 +182,10 @@ ALTER TABLE Sach ADD CONSTRAINT CK_Sach_SLTonKho CHECK (SLTonKho >= 0);
 ALTER TABLE ChiTietHoaDon ADD CONSTRAINT CK_ChiTietHoaDon_SoLuong CHECK (SoLuong > 0);
 ALTER TABLE HoiVien ADD CONSTRAINT CK_HoiVien_DiemTichLuy CHECK (DiemTichLuy >= 0);
 ALTER TABLE NguoiDung ADD CONSTRAINT CK_NguoiDung_Luong CHECK (Luong >= 0);
+ALTER TABLE DonNhap ADD CONSTRAINT CK_DonNhap_TongTien CHECK (TongTien >= 0);
+ALTER TABLE ChiTietDonNhap ADD CONSTRAINT CK_ChiTietDonNhap_SoLuong CHECK (SoLuong > 0);
+ALTER TABLE ChiTietDonNhap ADD CONSTRAINT CK_ChiTietDonNhap_GiaNhap CHECK (GiaNhap >= 0);
+ALTER TABLE ChiTietDonNhap ADD CONSTRAINT CK_ChiTietDonNhap_ThanhTien CHECK (ThanhTien >= 0);
 
 -- Thêm khóa ngoại cho HoaDon-HoiVien
 ALTER TABLE HoaDon
@@ -211,9 +215,11 @@ INSERT INTO CauHinh (TenCauHinh, GiaTri, MoTa) VALUES
 
 -- Thêm Manager và Staff
 INSERT INTO NguoiDung (HoTen, NgaySinh, GioiTinh, SDT, DiaChi, TenDangNhap, MatKhau, VaiTro, Luong) VALUES 
-(N'Nguyễn Văn An', '1980-01-01', N'Nam', '0901234567', N'123 Nguyễn Trãi, Q1, TP.HCM', 'manager', 'manager123', 'Manager', 15000000),
-(N'Trần Thị Bình', '1990-05-15', N'Nữ', '0907654321', N'456 Lê Lợi, Q3, TP.HCM', 'staff1', 'staff123', 'Staff', 8000000),
-(N'Lê Văn Cường', '1992-08-20', N'Nam', '0912345678', N'789 Nguyễn Huệ, Q1, TP.HCM', 'staff2', 'staff123', 'Staff', 8500000);
+(N'Nguyễn Văn An', '1980-01-01', N'Nam', '0901234567', N'123 Nguyễn Trãi, Q1, TP.HCM', 'manager', 'manager123', 'Manager', 15000000);
+INSERT INTO NguoiDung (HoTen, NgaySinh, GioiTinh, SDT, DiaChi, TenDangNhap, MatKhau, VaiTro, Luong, NguoiTao) VALUES 
+(N'Trần Thị Bình', '1990-05-15', N'Nữ', '0907654321', N'456 Lê Lợi, Q3, TP.HCM', 'staff1', 'staff123', 'Staff', 8000000, 1),
+(N'Lê Văn Cường', '1992-08-20', N'Nam', '0912345678', N'789 Nguyễn Huệ, Q1, TP.HCM', 'staff2', 'staff123', 'Staff', 8500000, 1),
+(N'Phạm Văn Đức', '1993-10-10', N'Nam', '0935678901', N'321 Lý Thường Kiệt, Q5, TP.HCM', 'staff3', 'staff123', 'Staff', 8500000,1 );
 
 -- Thêm nhà cung cấp
 INSERT INTO NhaCungCap (TenNCC, DienThoai, DiaChi, Website, Email) VALUES 
@@ -239,3 +245,99 @@ INSERT INTO HoiVien (HoTen, NgaySinh, GioiTinh, SDT, DiaChi, Email, LoaiThe) VAL
 INSERT INTO KhuyenMai (TenKM, NgayBatDau, NgayKetThuc, LoaiKM, GiaTriKM, DieuKienToiThieu, MoTa) VALUES 
 (N'Giảm giá sách giáo khoa', '2024-08-01', '2024-09-30', N'Percent', 10, 100000, N'Giảm 10% cho sách giáo khoa khi mua từ 100k'),
 (N'Ưu đãi hội viên VIP', '2024-01-01', '2024-12-31', N'Percent', 15, 0, N'Giảm 15% cho tất cả hội viên VIP');
+
+-- Thêm hóa đơn
+INSERT INTO HoaDon (NgayLapHD, TinhTrangTT, TongTien, PhuongThucTT, MaNguoiDung, MaHoiVien, GhiChu) VALUES
+('2024-08-01', N'Đã thanh toán', 445000.00, N'Tiền mặt', 2, 1, N'Khách hàng hội viên VIP'),
+('2024-08-02', N'Đã thanh toán', 120000.00, N'Chuyển khoản', 3, NULL, N'Khách mua sách kỹ năng'),
+('2024-08-03', N'Chưa thanh toán', 360000.00, N'Tiền mặt', 2, 2, N'Khách hàng hội viên Gold - chờ thanh toán'),
+('2024-08-04', N'Đã thanh toán', 45000.00, N'Tiền mặt', 3, 3, N'Mua sách giáo khoa'),
+('2024-08-05', N'Đã thanh toán', 545000.00, N'Thẻ tín dụng', 2, 1, N'Khách VIP mua nhiều sách');
+
+-- Thêm dữ liệu vào bảng ChiTietHoaDon
+INSERT INTO ChiTietHoaDon (MaHD, MaSach, SoLuong, DonGia, ThanhTien) VALUES
+-- Hóa đơn 1: Khách VIP mua 3 loại sách
+(1, 1, 3, 25000, 75000),   -- 3 cuốn Doraemon
+(1, 3, 1, 120000, 120000), -- 1 cuốn Đắc Nhân Tâm
+(1, 4, 1, 250000, 250000), -- 1 cuốn Sapiens
+-- Hóa đơn 2: Khách thường mua sách kỹ năng
+(2, 3, 1, 120000, 120000), -- 1 cuốn Đắc Nhân Tâm
+-- Hóa đơn 3: Khách Gold mua truyện tranh (chưa thanh toán)
+(3, 1, 2, 25000, 50000),   -- 2 cuốn Doraemon
+(3, 2, 2, 30000, 60000),   -- 2 cuốn Conan
+(3, 4, 1, 250000, 250000), -- 1 cuốn Sapiens
+-- Hóa đơn 4: Khách thường mua sách giáo khoa
+(4, 5, 1, 45000, 45000),   -- 1 cuốn Toán 12
+-- Hóa đơn 5: Khách VIP mua nhiều sách
+(5, 1, 5, 25000, 125000),  -- 5 cuốn Doraemon
+(5, 2, 3, 30000, 90000),   -- 3 cuốn Conan
+(5, 3, 2, 120000, 240000), -- 2 cuốn Đắc Nhân Tâm
+(5, 5, 2, 45000, 90000);   -- 2 cuốn Toán 12
+
+
+-- Tạo login trong master
+CREATE LOGIN manager WITH PASSWORD = 'manager123';
+CREATE LOGIN staff1 WITH PASSWORD = 'staff123';
+CREATE LOGIN staff2 WITH PASSWORD = 'staff123';
+CREATE LOGIN staff3 WITH PASSWORD = 'staff123';
+
+-- Disable login staff2
+ALTER LOGIN staff2 DISABLE;
+
+-- Chuyển sang database CuaHangBanSach
+USE CuaHangBanSach;
+
+-- Tạo user cho các login
+CREATE USER manager FOR LOGIN manager;
+CREATE USER staff1 FOR LOGIN staff1;
+CREATE USER staff2 FOR LOGIN staff2;
+CREATE USER staff3 FOR LOGIN staff3;
+
+-- Tạo vai trò db_manager và db_staff
+CREATE ROLE db_manager;
+CREATE ROLE db_staff;
+
+-- Gán user vào vai trò
+EXEC sp_addrolemember 'db_manager', 'manager';
+EXEC sp_addrolemember 'db_staff', 'staff1';
+EXEC sp_addrolemember 'db_staff', 'staff2';
+EXEC sp_addrolemember 'db_staff', 'staff3';
+
+-- Cấp quyền cho db_manager
+GRANT SELECT, INSERT, UPDATE, DELETE ON NguoiDung TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON HoaDon TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON DonNhap TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON NhaCungCap TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Sach TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ChiTietHoaDon TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ChiTietDonNhap TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON HoiVien TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON DangKyHoiVien TO db_manager;
+GRANT SELECT, INSERT ON LogHoatDong TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ThongBao TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON CauHinh TO db_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON KhuyenMai TO db_manager;
+GRANT EXECUTE ON sp_CapNhatNhanVien TO db_manager;
+GRANT EXECUTE ON sp_XoaNhanVien TO db_manager;
+
+-- Cấp quyền cho db_staff
+GRANT SELECT, INSERT, UPDATE ON HoaDon TO db_staff;
+GRANT SELECT, INSERT, UPDATE ON ChiTietHoaDon TO db_staff;
+GRANT SELECT ON Sach TO db_staff;
+GRANT SELECT ON NhaCungCap TO db_staff;
+GRANT SELECT ON HoiVien TO db_staff;
+GRANT SELECT ON KhuyenMai TO db_staff;
+GRANT INSERT ON LogHoatDong TO db_staff;
+GRANT SELECT, INSERT, UPDATE ON ThongBao TO db_staff;
+
+-- Cấp quyền cho manager
+USE master;
+GRANT ALTER ANY LOGIN TO manager;
+USE CuaHangBanSach;
+GRANT ALTER ANY USER TO manager;
+GRANT ALTER ANY ROLE TO manager;
+
+-- Đồng bộ trạng thái staff2 trong NguoiDung
+UPDATE NguoiDung
+SET TrangThai = N'Ngừng hoạt động'
+WHERE TenDangNhap = 'staff2';
