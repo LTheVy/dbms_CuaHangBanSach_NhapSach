@@ -162,6 +162,7 @@
             // numericUpDownTongTien
             // 
             this.numericUpDownTongTien.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.numericUpDownTongTien.Enabled = false;
             this.numericUpDownTongTien.Increment = new decimal(new int[] {
             10000,
             0,
@@ -199,7 +200,7 @@
             // 
             // buttonHuy
             // 
-            this.buttonHuy.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonHuy.BackColor = System.Drawing.Color.Gray;
             this.buttonHuy.Location = new System.Drawing.Point(721, 142);
             this.buttonHuy.Name = "buttonHuy";
             this.buttonHuy.Size = new System.Drawing.Size(95, 37);
@@ -219,7 +220,7 @@
             // 
             // buttonLuu
             // 
-            this.buttonLuu.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonLuu.BackColor = System.Drawing.Color.Gray;
             this.buttonLuu.Location = new System.Drawing.Point(721, 84);
             this.buttonLuu.Name = "buttonLuu";
             this.buttonLuu.Size = new System.Drawing.Size(95, 37);
@@ -267,7 +268,6 @@
             // 
             this.textBoxMaNguoiDung.Location = new System.Drawing.Point(479, 3);
             this.textBoxMaNguoiDung.Name = "textBoxMaNguoiDung";
-            this.textBoxMaNguoiDung.ReadOnly = true;
             this.textBoxMaNguoiDung.Size = new System.Drawing.Size(213, 22);
             this.textBoxMaNguoiDung.TabIndex = 9;
             // 

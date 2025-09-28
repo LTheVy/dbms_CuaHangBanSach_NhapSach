@@ -66,11 +66,13 @@ CREATE PROCEDURE sp_ThemNhaCungCap
     @Website NVARCHAR(200),
     @Email NVARCHAR(100),
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
+		BEGIN TRANSACTION;
         INSERT INTO NhaCungCap (
             TenNCC,
             DienThoai,
@@ -87,10 +89,13 @@ BEGIN
         );
 
         SET @ErrorMessage = N'';
+		COMMIT;
         RETURN 1;
     END TRY
     BEGIN CATCH
         SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
         RETURN 0;
     END CATCH
 END
@@ -106,18 +111,18 @@ CREATE PROCEDURE sp_SuaNhaCungCap
     @Website NVARCHAR(200),
     @Email NVARCHAR(100),
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
+	BEGIN TRY
+		BEGIN TRANSACTION;
+		-- Kiểm tra MaNCC tồn tại
+		IF NOT EXISTS (SELECT 1 FROM NhaCungCap WHERE MaNCC = @MaNCC)
+		BEGIN
+			THROW 50001, N'Mã nhà cung cấp không tồn tại.', 1;
+		END
 
-    -- Kiểm tra MaNCC tồn tại
-    IF NOT EXISTS (SELECT 1 FROM NhaCungCap WHERE MaNCC = @MaNCC)
-    BEGIN
-        SET @ErrorMessage = N'Mã nhà cung cấp không tồn tại.';
-        RETURN 0;
-    END
-
-    BEGIN TRY
         UPDATE NhaCungCap
         SET
             TenNCC = @TenNCC,
@@ -128,10 +133,13 @@ BEGIN
         WHERE MaNCC = @MaNCC;
 
         SET @ErrorMessage = N'';
+		COMMIT;
         RETURN 1;
     END TRY
     BEGIN CATCH
         SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
         RETURN 0;
     END CATCH
 END
@@ -142,26 +150,30 @@ GO
 CREATE PROCEDURE sp_XoaNhaCungCap
     @MaNCC INT,
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
+	BEGIN TRY
+		BEGIN TRANSACTION;
+		-- Kiểm tra MaNCC tồn tại
+		IF NOT EXISTS (SELECT 1 FROM NhaCungCap WHERE MaNCC = @MaNCC)
+		BEGIN
+			SET @ErrorMessage = N'Mã nhà cung cấp không tồn tại.';
+			RETURN 0;
+		END
 
-    -- Kiểm tra MaNCC tồn tại
-    IF NOT EXISTS (SELECT 1 FROM NhaCungCap WHERE MaNCC = @MaNCC)
-    BEGIN
-        SET @ErrorMessage = N'Mã nhà cung cấp không tồn tại.';
-        RETURN 0;
-    END
-
-    BEGIN TRY
         DELETE FROM NhaCungCap
         WHERE MaNCC = @MaNCC;
 
         SET @ErrorMessage = N'';
+		COMMIT;
         RETURN 1;
     END TRY
     BEGIN CATCH
         SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
         RETURN 0;
     END CATCH
 END

@@ -86,7 +86,6 @@ namespace QuanLyNhapSach
                 if (Application.OpenForms[i] != this)
                     Application.OpenForms[i].Close();
             }
-            MessageBox.Show("Đã đăng xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void loadDonNhap()
@@ -131,6 +130,20 @@ namespace QuanLyNhapSach
             dataGridViewNhaCungCap.CurrentCell = null;
         }
 
+        private void loadChiTietDonNhap()
+        {
+            DataTable dt = new BL_ChiTietDonNhap().layTatCa(ref errMessage);
+            if (dt == null)
+            {
+                if (errMessage != "")
+                    MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            dataGridViewChiTietDonNhap.DataSource = dt;
+            dataGridViewChiTietDonNhap.ClearSelection();
+            dataGridViewChiTietDonNhap.CurrentCell = null;
+        }
+
         private void dataGridViewDonNhap_VisibleChanged(object sender, EventArgs e)
         {
             if (isLogin) loadDonNhap();
@@ -144,6 +157,11 @@ namespace QuanLyNhapSach
         private void dataGridViewNhaCungCap_VisibleChanged(object sender, EventArgs e)
         {
             if (isLogin) loadNhaCungCap();
+        }
+
+        private void dataGridViewChiTietDonNhap_VisibleChanged(object sender, EventArgs e)
+        {
+            if (isLogin) loadChiTietDonNhap();
         }
 
         private void buttonSachChinhSua_Click(object sender, EventArgs e)
@@ -237,7 +255,8 @@ namespace QuanLyNhapSach
         private void buttonChinhDN_Click(object sender, EventArgs e)
         {
             FormNhapHang formNhapHang = new FormNhapHang(textBoxMaDN.Text);
-            formNhapHang.Show();
+            if (!formNhapHang.IsDisposed)
+                formNhapHang.Show();
         }
 
         private void dataGridViewDonNhap_CurrentCellChanged(object sender, EventArgs e)
@@ -250,6 +269,61 @@ namespace QuanLyNhapSach
             }
             int currentRow = currentCell.RowIndex;
             textBoxMaDN.Text = dataGridViewDonNhap.Rows[currentRow].Cells["MaDN"].Value.ToString();
+        }
+
+        private void buttonXacNhanDon_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewDonNhap.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn đơn nhập để xác nhận!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            string maDN = dataGridViewDonNhap.CurrentRow.Cells["MaDN"].Value.ToString();
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xác nhận đơn nhập này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
+            string errMessage = "";
+            if (!new BL_DonNhap().xacNhanDonNhap(maDN, ref errMessage))
+            {
+                MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            loadDonNhap();
+        }
+
+        private void buttonHuyDon_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewDonNhap.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn đơn nhập để hủy!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            string maDN = dataGridViewDonNhap.CurrentRow.Cells["MaDN"].Value.ToString();
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn hủy đơn nhập này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
+            string errMessage = "";
+            if (!new BL_DonNhap().xoa(maDN, ref errMessage))
+            {
+                MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            loadDonNhap();
+        }
+
+        private void buttonCTDNChinhSua_Click(object sender, EventArgs e)
+        {
+            formChiTietDonNhap = new FormChiTietDonNhap("", "", "");
+            formChiTietDonNhap.Show();
+        }
+
+        private void buttonCTDNTaiLai_Click(object sender, EventArgs e)
+        {
+            loadChiTietDonNhap();
         }
     }
 }

@@ -220,7 +220,7 @@ namespace QuanLyNhapSach.Business_Layer
                 errMessage = "Mã đơn nhập không hợp lệ.";
                 return false;
             }
-            cmd.Parameters.AddWithValue("@MaNCC", maDNInt);
+            cmd.Parameters.AddWithValue("@MaDN", maDNInt);
 
             // OUTPUT
             SqlParameter errorParam = new SqlParameter("@ErrorMessage", SqlDbType.NVarChar, 500)
@@ -286,6 +286,40 @@ namespace QuanLyNhapSach.Business_Layer
             }
 
             maDN = maDNParam.Value.ToString();
+            errMessage = (string)errorParam.Value;
+            int returnValue = (int)returnParam.Value;
+            return returnValue != 0;
+        }
+
+        public bool xacNhanDonNhap(string maDN, ref string errMessage)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "sp_XacNhanDonNhap";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (!int.TryParse(maDN, out int maDNInt))
+            {
+                errMessage = "Mã đơn nhập không hợp lệ.";
+                return false;
+            }
+            cmd.Parameters.AddWithValue("@MaDN", maDNInt);
+            // OUTPUT
+            SqlParameter errorParam = new SqlParameter("@ErrorMessage", SqlDbType.NVarChar, 500)
+            {
+                Direction = ParameterDirection.Output
+            };
+            cmd.Parameters.Add(errorParam);
+            // RETURN
+            SqlParameter returnParam = new SqlParameter
+            {
+                Direction = ParameterDirection.ReturnValue
+            };
+            cmd.Parameters.Add(returnParam);
+
+            if (!db.MyExecuteNonQuery(cmd, ref errMessage))
+            {
+                return false;
+            }
             errMessage = (string)errorParam.Value;
             int returnValue = (int)returnParam.Value;
             return returnValue != 0;

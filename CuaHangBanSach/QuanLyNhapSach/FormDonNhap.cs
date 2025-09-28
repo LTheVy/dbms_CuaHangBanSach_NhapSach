@@ -203,8 +203,8 @@ namespace QuanLyNhapSach
             }
 
             string errMessage = "";
-            string maNCC = dataGridViewMain.Rows[dataGridViewMain.CurrentCell.RowIndex].Cells["MaNCC"].Value.ToString();
-            if (!bL_DonNhap.xoa(maNCC, ref errMessage))
+            string maDN = dataGridViewMain.Rows[dataGridViewMain.CurrentCell.RowIndex].Cells["MaDN"].Value.ToString();
+            if (!bL_DonNhap.xoa(maDN, ref errMessage))
             {
                 MessageBox.Show(errMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

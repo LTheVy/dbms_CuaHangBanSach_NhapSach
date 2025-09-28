@@ -44,7 +44,6 @@
             this.numericUpDownNamXuatBan = new System.Windows.Forms.NumericUpDown();
             this.labelTrangThai = new System.Windows.Forms.Label();
             this.textBoxNgonNgu = new System.Windows.Forms.TextBox();
-            this.textBoxTrangThai = new System.Windows.Forms.TextBox();
             this.labelNgonNgu = new System.Windows.Forms.Label();
             this.labelMoTa = new System.Windows.Forms.Label();
             this.textBoxTheLoai = new System.Windows.Forms.TextBox();
@@ -63,6 +62,7 @@
             this.buttonHuy = new System.Windows.Forms.Button();
             this.textBoxMoTa = new System.Windows.Forms.TextBox();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.comboBoxTrangThai = new System.Windows.Forms.ComboBox();
             this.numericUpDownDonGia = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNamXuatBan)).BeginInit();
@@ -190,7 +190,7 @@
             // 
             this.labelNgayCapNhat.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelNgayCapNhat.AutoSize = true;
-            this.labelNgayCapNhat.Location = new System.Drawing.Point(263, 130);
+            this.labelNgayCapNhat.Location = new System.Drawing.Point(263, 127);
             this.labelNgayCapNhat.Name = "labelNgayCapNhat";
             this.labelNgayCapNhat.Size = new System.Drawing.Size(97, 16);
             this.labelNgayCapNhat.TabIndex = 20;
@@ -210,7 +210,7 @@
             // 
             this.dateTimePickerNgayCapNhat.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dateTimePickerNgayCapNhat.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerNgayCapNhat.Location = new System.Drawing.Point(366, 127);
+            this.dateTimePickerNgayCapNhat.Location = new System.Drawing.Point(366, 122);
             this.dateTimePickerNgayCapNhat.Name = "dateTimePickerNgayCapNhat";
             this.dateTimePickerNgayCapNhat.Size = new System.Drawing.Size(100, 22);
             this.dateTimePickerNgayCapNhat.TabIndex = 21;
@@ -237,7 +237,7 @@
             // 
             this.labelTrangThai.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelTrangThai.AutoSize = true;
-            this.labelTrangThai.Location = new System.Drawing.Point(290, 153);
+            this.labelTrangThai.Location = new System.Drawing.Point(291, 153);
             this.labelTrangThai.Name = "labelTrangThai";
             this.labelTrangThai.Size = new System.Drawing.Size(70, 16);
             this.labelTrangThai.TabIndex = 22;
@@ -250,14 +250,6 @@
             this.textBoxNgonNgu.Name = "textBoxNgonNgu";
             this.textBoxNgonNgu.Size = new System.Drawing.Size(100, 22);
             this.textBoxNgonNgu.TabIndex = 13;
-            // 
-            // textBoxTrangThai
-            // 
-            this.textBoxTrangThai.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBoxTrangThai.Location = new System.Drawing.Point(366, 155);
-            this.textBoxTrangThai.Name = "textBoxTrangThai";
-            this.textBoxTrangThai.Size = new System.Drawing.Size(100, 22);
-            this.textBoxTrangThai.TabIndex = 23;
             // 
             // labelNgonNgu
             // 
@@ -396,7 +388,7 @@
             // buttonLuu
             // 
             this.buttonLuu.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonLuu.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonLuu.BackColor = System.Drawing.Color.Gray;
             this.buttonLuu.Location = new System.Drawing.Point(821, 83);
             this.buttonLuu.Name = "buttonLuu";
             this.buttonLuu.Size = new System.Drawing.Size(95, 37);
@@ -418,7 +410,7 @@
             // buttonHuy
             // 
             this.buttonHuy.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonHuy.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonHuy.BackColor = System.Drawing.Color.Gray;
             this.buttonHuy.Location = new System.Drawing.Point(821, 141);
             this.buttonHuy.Name = "buttonHuy";
             this.buttonHuy.Size = new System.Drawing.Size(95, 37);
@@ -440,6 +432,7 @@
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.Color.Transparent;
+            this.panelMain.Controls.Add(this.comboBoxTrangThai);
             this.panelMain.Controls.Add(this.numericUpDownDonGia);
             this.panelMain.Controls.Add(this.textBoxMoTa);
             this.panelMain.Controls.Add(this.buttonHuy);
@@ -458,7 +451,6 @@
             this.panelMain.Controls.Add(this.textBoxTheLoai);
             this.panelMain.Controls.Add(this.labelMoTa);
             this.panelMain.Controls.Add(this.labelNgonNgu);
-            this.panelMain.Controls.Add(this.textBoxTrangThai);
             this.panelMain.Controls.Add(this.textBoxNgonNgu);
             this.panelMain.Controls.Add(this.labelTrangThai);
             this.panelMain.Controls.Add(this.numericUpDownNamXuatBan);
@@ -472,6 +464,17 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(923, 187);
             this.panelMain.TabIndex = 35;
+            // 
+            // comboBoxTrangThai
+            // 
+            this.comboBoxTrangThai.FormattingEnabled = true;
+            this.comboBoxTrangThai.Items.AddRange(new object[] {
+            "Có bán",
+            "Không bán"});
+            this.comboBoxTrangThai.Location = new System.Drawing.Point(366, 150);
+            this.comboBoxTrangThai.Name = "comboBoxTrangThai";
+            this.comboBoxTrangThai.Size = new System.Drawing.Size(100, 24);
+            this.comboBoxTrangThai.TabIndex = 23;
             // 
             // numericUpDownDonGia
             // 
@@ -537,7 +540,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownNamXuatBan;
         private System.Windows.Forms.Label labelTrangThai;
         private System.Windows.Forms.TextBox textBoxNgonNgu;
-        private System.Windows.Forms.TextBox textBoxTrangThai;
         private System.Windows.Forms.Label labelNgonNgu;
         private System.Windows.Forms.Label labelMoTa;
         private System.Windows.Forms.TextBox textBoxTheLoai;
@@ -557,5 +559,6 @@
         private System.Windows.Forms.TextBox textBoxMoTa;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.NumericUpDown numericUpDownDonGia;
+        private System.Windows.Forms.ComboBox comboBoxTrangThai;
     }
 }

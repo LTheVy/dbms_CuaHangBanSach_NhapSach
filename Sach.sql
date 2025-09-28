@@ -43,11 +43,13 @@ CREATE OR ALTER PROCEDURE sp_ThemSach
     @TrangThai NVARCHAR(20) = NULL,
     @MoTa NVARCHAR(1000),
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
+		BEGIN TRANSACTION;
         INSERT INTO Sach (
             TenSach,
             TacGia,
@@ -78,10 +80,13 @@ BEGIN
         );
 
         SET @ErrorMessage = N'';
+		COMMIT;
         RETURN 1;
     END TRY
     BEGIN CATCH
         SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
         RETURN 0;
     END CATCH
 END;
@@ -104,18 +109,18 @@ CREATE OR ALTER PROCEDURE sp_SuaSach
     @TrangThai NVARCHAR(20) = NULL,
     @MoTa NVARCHAR(1000),
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
+	BEGIN TRY
+		BEGIN TRANSACTION;
+		-- Kiểm tra MaSach tồn tại
+		IF NOT EXISTS (SELECT 1 FROM Sach WHERE MaSach = @MaSach)
+		BEGIN
+			THROW 50001, N'Mã sách không tồn tại.', 1;
+		END
 
-    -- Kiểm tra MaSach tồn tại
-    IF NOT EXISTS (SELECT 1 FROM Sach WHERE MaSach = @MaSach)
-    BEGIN
-        SET @ErrorMessage = N'Mã sách không tồn tại.';
-        RETURN 0;
-    END
-
-    BEGIN TRY
         UPDATE Sach
         SET
             TenSach = @TenSach,
@@ -133,10 +138,13 @@ BEGIN
         WHERE MaSach = @MaSach;
 
         SET @ErrorMessage = N'';
+		COMMIT;
         RETURN 1;
     END TRY
     BEGIN CATCH
         SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
         RETURN 0;
     END CATCH
 END;
@@ -147,26 +155,30 @@ GO
 CREATE OR ALTER PROCEDURE sp_XoaSach
     @MaSach INT,
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
+	BEGIN TRY
+		BEGIN TRANSACTION;
 
-    -- Kiểm tra MaSach tồn tại
-    IF NOT EXISTS (SELECT 1 FROM Sach WHERE MaSach = @MaSach)
-    BEGIN
-        SET @ErrorMessage = N'Mã sách không tồn tại.';
-        RETURN 0;
-    END
+		-- Kiểm tra MaSach tồn tại
+		IF NOT EXISTS (SELECT 1 FROM Sach WHERE MaSach = @MaSach)
+		BEGIN
+			THROW 50001, N'Mã sách không tồn tại.', 1;
+		END
 
-    BEGIN TRY
         DELETE FROM Sach
         WHERE MaSach = @MaSach;
 
         SET @ErrorMessage = N'';
+		COMMIT
         RETURN 1;
     END TRY
     BEGIN CATCH
         SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
         RETURN 0;
     END CATCH
 END;

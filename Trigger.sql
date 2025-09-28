@@ -1,4 +1,7 @@
-﻿--Trigger: Tính thành tiền trong bảng ChiTietDonNhap
+﻿USE CuaHangBanSach
+GO
+
+--Trigger: Tính thành tiền trong bảng ChiTietDonNhap
 GO
 CREATE OR ALTER TRIGGER tr_TinhThanhTien_ChiTietDonNhap
 ON ChiTietDonNhap
@@ -8,9 +11,6 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        BEGIN TRANSACTION;
-
-        -- Cập nhật ThanhTien
         UPDATE ChiTietDonNhap
         SET ThanhTien = inserted.SoLuong * inserted.GiaNhap
         FROM ChiTietDonNhap
@@ -18,12 +18,8 @@ BEGIN
 			ON ChiTietDonNhap.MaDN = inserted.MaDN
 			AND ChiTietDonNhap.MaSach = inserted.MaSach
 			AND ChiTietDonNhap.MaNCC = inserted.MaNCC;
-
-        COMMIT;
     END TRY
     BEGIN CATCH
-        IF @@TRANCOUNT > 0
-            ROLLBACK;
 		THROW
     END CATCH
 END
@@ -39,8 +35,6 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        BEGIN TRANSACTION;
-
         UPDATE DonNhap
         SET TongTien = (
             SELECT ISNULL(SUM(ThanhTien), 0)
@@ -53,12 +47,8 @@ BEGIN
 			UNION
 			SELECT MaDN FROM deleted
 		)q ON dn.MaDN = q.MaDN;
-
-        COMMIT;
     END TRY
     BEGIN CATCH
-        IF @@TRANCOUNT > 0
-            ROLLBACK;
 		THROW
     END CATCH
 END
@@ -96,8 +86,6 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        BEGIN TRANSACTION;
-
         IF UPDATE(TinhTrangNhap) --Kiểm tra TinhTrangNhap thay đổi
         BEGIN
             --Trường hợp chuyển sang đã nhập
@@ -138,14 +126,37 @@ BEGIN
 					)
 				GROUP BY ctdn.MaSach
 			)q ON q.MaSach = Sach.MaSach
-
         END
-        COMMIT;
     END TRY
     BEGIN CATCH
-        DECLARE @ErrorMessage NVARCHAR(500) = ERROR_MESSAGE();
-        IF @@TRANCOUNT > 0
-            ROLLBACK;
-        RAISERROR (@ErrorMessage, 16, 1);
+		THROW
+    END CATCH
+END
+
+
+--Trigger: Xóa đơn chuyển thành hủy đơn
+GO
+CREATE OR ALTER TRIGGER tr_HuyDonNhap
+ON DonNhap
+INSTEAD OF DELETE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        -- Kiểm tra bản ghi tồn tại
+        IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN IN (SELECT MaDN FROM deleted))
+        BEGIN
+            THROW 50001, N'Mã đơn nhập không tồn tại.', 1;
+        END
+
+        -- Cập nhật TinhTrangNhap thành N'Hủy đơn'
+        UPDATE DonNhap
+        SET TinhTrangNhap = N'Hủy đơn'
+        FROM DonNhap
+        JOIN deleted ON DonNhap.MaDN = deleted.MaDN;
+    END TRY
+    BEGIN CATCH
+		THROW;
     END CATCH
 END

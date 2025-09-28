@@ -79,11 +79,14 @@ CREATE OR ALTER PROCEDURE sp_ThemDonNhap
     @GhiChu NVARCHAR(500) = NULL,
     @ErrorMessage NVARCHAR(500) OUTPUT,
 	@MaDN INT OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
+		BEGIN TRANSACTION;
+
         INSERT INTO DonNhap (
             NgayLapDN,
             TongTien,
@@ -101,11 +104,13 @@ BEGIN
 
 		SET @MaDN = SCOPE_IDENTITY();
         SET @ErrorMessage = N'';
-
+		COMMIT;
         RETURN 1;
     END TRY
     BEGIN CATCH
         SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
         RETURN 0;
     END CATCH
 END
@@ -121,25 +126,26 @@ CREATE OR ALTER PROCEDURE sp_SuaDonNhap
     @MaNguoiDung INT,
     @GhiChu NVARCHAR(500),
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Kiểm tra MaDN tồn tại
-    IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
-    BEGIN
-        SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
-        RETURN 0;
-    END
+	BEGIN TRY
+		BEGIN TRANSACTION;
+		-- Kiểm tra MaDN tồn tại
+		IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
+		BEGIN
+			SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
+			RETURN 0;
+		END
 
-    -- Kiểm tra MaNguoiDung tồn tại
-    IF NOT EXISTS (SELECT 1 FROM NguoiDung WHERE MaNguoiDung = @MaNguoiDung)
-    BEGIN
-        SET @ErrorMessage = N'Mã người dùng không tồn tại.';
-        RETURN 0;
-    END
+		-- Kiểm tra MaNguoiDung tồn tại
+		IF NOT EXISTS (SELECT 1 FROM NguoiDung WHERE MaNguoiDung = @MaNguoiDung)
+		BEGIN
+			THROW 5001, N'Mã người dùng không tồn tại.', 1;
+		END
 
-    BEGIN TRY
         UPDATE DonNhap
         SET
             NgayLapDN = COALESCE(@NgayLapDN, CAST(GETDATE() AS DATE)),
@@ -150,10 +156,13 @@ BEGIN
         WHERE MaDN = @MaDN;
 
         SET @ErrorMessage = N'';
+		COMMIT;
         RETURN 1;
     END TRY
     BEGIN CATCH
         SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
         RETURN 0;
     END CATCH
 END
@@ -164,26 +173,30 @@ GO
 CREATE OR ALTER PROCEDURE sp_XoaDonNhap
     @MaDN INT,
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Kiểm tra MaDN tồn tại
-    IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
-    BEGIN
-        SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
-        RETURN 0;
-    END
+	BEGIN TRY
+		BEGIN TRANSACTION;
+		-- Kiểm tra MaDN tồn tại
+		IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
+		BEGIN
+			THROW 50001, N'Mã đơn nhập không tồn tại.', 1;
+		END
 
-    BEGIN TRY
         DELETE FROM DonNhap
         WHERE MaDN = @MaDN;
 
         SET @ErrorMessage = N'';
+		COMMIT;
         RETURN 1;
     END TRY
     BEGIN CATCH
         SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
         RETURN 0;
     END CATCH
 END
@@ -195,28 +208,66 @@ CREATE OR ALTER PROCEDURE sp_SuaGhiChuDonNhap
 	@MaDN INT,
 	@GhiChu NVARCHAR(500) = N'',
 	@ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
 	SET NOCOUNT ON;
-
-	-- Kiểm tra MaDN tồn tại
-    IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
-    BEGIN
-        SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
-        RETURN 0;
-    END
-	
 	BEGIN TRY
+		BEGIN TRANSACTION;
+		-- Kiểm tra MaDN tồn tại
+		IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
+		BEGIN
+			THROW 50001, N'Mã đơn nhập không tồn tại.', 1;
+		END
+	
         UPDATE DonNhap
         SET
             GhiChu = @GhiChu
         WHERE MaDN = @MaDN;
 
         SET @ErrorMessage = N'';
+		COMMIT;
         RETURN 1;
     END TRY
     BEGIN CATCH
         SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+        RETURN 0;
+    END CATCH
+END
+
+
+--Procedure: Xác nhận đơn nhập
+GO
+CREATE OR ALTER PROCEDURE sp_XacNhanDonNhap
+	@MaDN INT,
+	@ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
+AS
+BEGIN
+	SET NOCOUNT ON;
+	BEGIN TRY
+		BEGIN TRANSACTION;
+		-- Kiểm tra MaDN tồn tại
+		IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
+		BEGIN
+			THROW 50001, N'Mã đơn nhập không tồn tại.', 1;
+		END
+	
+        UPDATE DonNhap
+        SET
+            TinhTrangNhap = N'Đã nhập'
+        WHERE MaDN = @MaDN;
+
+        SET @ErrorMessage = N'';
+		COMMIT;
+        RETURN 1;
+    END TRY
+    BEGIN CATCH
+        SET @ErrorMessage = ERROR_MESSAGE();
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
         RETURN 0;
     END CATCH
 END

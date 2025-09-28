@@ -66,6 +66,7 @@ CREATE OR ALTER PROCEDURE sp_ThemChiTietDonNhap
     @GiaNhap DECIMAL(18,2),
 	@ThanhTien DECIMAL(18,2) = 0,
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -76,25 +77,19 @@ BEGIN
         -- Kiểm tra MaDN tồn tại
         IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
         BEGIN
-            SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Mã đơn nhập không tồn tại.', 1;
         END
 
         -- Kiểm tra MaSach tồn tại
         IF NOT EXISTS (SELECT 1 FROM Sach WHERE MaSach = @MaSach)
         BEGIN
-            SET @ErrorMessage = N'Mã sách không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Mã sách không tồn tại.', 1;
         END
 
         -- Kiểm tra MaNCC tồn tại
         IF NOT EXISTS (SELECT 1 FROM NhaCungCap WHERE MaNCC = @MaNCC)
         BEGIN
-            SET @ErrorMessage = N'Mã nhà cung cấp không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Mã nhà cung cấp không tồn tại.', 1;
         END
 
 		--Kiểm tra DonNhap có bị hủy
@@ -134,6 +129,7 @@ CREATE OR ALTER PROCEDURE sp_SuaChiTietDonNhap
     @GiaNhap DECIMAL(18,2),
 	@ThanhTien DECIMAL(18,2) = 0,
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -144,41 +140,31 @@ BEGIN
         -- Kiểm tra bản ghi ChiTietDonNhap tồn tại
         IF NOT EXISTS (SELECT 1 FROM ChiTietDonNhap WHERE MaDN = @MaDNCu AND MaSach = @MaSachCu AND MaNCC = @MaNCCCu)
         BEGIN
-            SET @ErrorMessage = N'Bản ghi chi tiết đơn nhập không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Bản ghi chi tiết đơn nhập không tồn tại.', 1;
         END
 
         -- Kiểm tra MaDN tồn tại
         IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDNMoi)
         BEGIN
-            SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Mã đơn nhập không tồn tại.', 1;
         END
 
         -- Kiểm tra MaSach tồn tại
         IF NOT EXISTS (SELECT 1 FROM Sach WHERE MaSach = @MaSachMoi)
         BEGIN
-            SET @ErrorMessage = N'Mã sách không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Mã sách không tồn tại.', 1;
         END
 
         -- Kiểm tra MaNCC tồn tại
         IF NOT EXISTS (SELECT 1 FROM NhaCungCap WHERE MaNCC = @MaNCCMoi)
         BEGIN
-            SET @ErrorMessage = N'Mã nhà cung cấp không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Mã nhà cung cấp không tồn tại.', 1;
         END
 
 		--Kiểm tra DonNhap có bị hủy
 		IF dbo.fn_LayTinhTrangNhapDonNhap(@MaDNCu) = N'Hủy đơn' OR dbo.fn_LayTinhTrangNhapDonNhap(@MaDNMoi) = N'Hủy đơn'
 		BEGIN
-            SET @ErrorMessage = N'Đơn đã bị hủy';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Đơn đã bị hủy', 1;
         END
 
         UPDATE ChiTietDonNhap
@@ -211,6 +197,7 @@ CREATE OR ALTER PROCEDURE sp_XoaChiTietDonNhap
     @MaSach INT,
     @MaNCC INT,
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -221,17 +208,13 @@ BEGIN
         -- Kiểm tra bản ghi ChiTietDonNhap tồn tại
         IF NOT EXISTS (SELECT 1 FROM ChiTietDonNhap WHERE MaDN = @MaDN AND MaSach = @MaSach AND MaNCC = @MaNCC)
         BEGIN
-            SET @ErrorMessage = N'Bản ghi chi tiết đơn nhập không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Bản ghi chi tiết đơn nhập không tồn tại.', 1;
         END
 
 		--Kiểm tra DonNhap có bị hủy
 		IF dbo.fn_LayTinhTrangNhapDonNhap(@MaDN) = N'Hủy đơn'
 		BEGIN
-            SET @ErrorMessage = N'Đơn đã bị hủy';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Đơn đã bị hủy', 1;
         END
 
         DELETE FROM ChiTietDonNhap
@@ -262,6 +245,7 @@ CREATE OR ALTER PROCEDURE sp_SuaThongTinNhapHang
     @GiaNhap DECIMAL(18,2),
 	@ThanhTien DECIMAL(18,2) = 0,
     @ErrorMessage NVARCHAR(500) OUTPUT
+WITH EXECUTE AS OWNER
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -272,41 +256,31 @@ BEGIN
         -- Kiểm tra bản ghi ChiTietDonNhap tồn tại
         IF NOT EXISTS (SELECT 1 FROM ChiTietDonNhap WHERE MaDN = @MaDN AND MaSach = @MaSachCu AND MaNCC = @MaNCCCu)
         BEGIN
-            SET @ErrorMessage = N'Bản ghi chi tiết đơn nhập không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Bản ghi chi tiết đơn nhập không tồn tại.', 1;
         END
 
         -- Kiểm tra MaDN tồn tại
         IF NOT EXISTS (SELECT 1 FROM DonNhap WHERE MaDN = @MaDN)
         BEGIN
-            SET @ErrorMessage = N'Mã đơn nhập không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Mã đơn nhập không tồn tại.', 1;
         END
 
         -- Kiểm tra MaSach tồn tại
         IF NOT EXISTS (SELECT 1 FROM Sach WHERE MaSach = @MaSachMoi)
         BEGIN
-            SET @ErrorMessage = N'Mã sách không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Mã sách không tồn tại.', 1;
         END
 
         -- Kiểm tra MaNCC tồn tại
         IF NOT EXISTS (SELECT 1 FROM NhaCungCap WHERE MaNCC = @MaNCCMoi)
         BEGIN
-            SET @ErrorMessage = N'Mã nhà cung cấp không tồn tại.';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Mã nhà cung cấp không tồn tại.', 1;
         END
 
 		--Kiểm tra DonNhap có bị hủy
 		IF dbo.fn_LayTinhTrangNhapDonNhap(@MaDN) = N'Hủy đơn'
 		BEGIN
-            SET @ErrorMessage = N'Đơn đã bị hủy';
-            ROLLBACK;
-            RETURN 0;
+            THROW 50001, N'Đơn đã bị hủy', 1;
         END
 
         UPDATE ChiTietDonNhap

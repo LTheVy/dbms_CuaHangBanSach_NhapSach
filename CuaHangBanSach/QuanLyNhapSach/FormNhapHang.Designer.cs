@@ -96,7 +96,7 @@
             // 
             // buttonLuuGhiChu
             // 
-            this.buttonLuuGhiChu.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonLuuGhiChu.BackColor = System.Drawing.Color.Gray;
             this.buttonLuuGhiChu.Location = new System.Drawing.Point(725, 10);
             this.buttonLuuGhiChu.Name = "buttonLuuGhiChu";
             this.buttonLuuGhiChu.Size = new System.Drawing.Size(95, 37);
@@ -260,7 +260,7 @@
             // 
             // buttonHuy
             // 
-            this.buttonHuy.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonHuy.BackColor = System.Drawing.Color.Gray;
             this.buttonHuy.Location = new System.Drawing.Point(725, 47);
             this.buttonHuy.Name = "buttonHuy";
             this.buttonHuy.Size = new System.Drawing.Size(95, 37);
@@ -271,7 +271,7 @@
             // 
             // buttonLuu
             // 
-            this.buttonLuu.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonLuu.BackColor = System.Drawing.Color.Gray;
             this.buttonLuu.Location = new System.Drawing.Point(725, 3);
             this.buttonLuu.Name = "buttonLuu";
             this.buttonLuu.Size = new System.Drawing.Size(95, 37);

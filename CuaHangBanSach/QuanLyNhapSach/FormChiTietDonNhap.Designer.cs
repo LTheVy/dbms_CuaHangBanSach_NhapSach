@@ -137,7 +137,7 @@
             // 
             // buttonHuy
             // 
-            this.buttonHuy.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonHuy.BackColor = System.Drawing.Color.Gray;
             this.buttonHuy.Location = new System.Drawing.Point(725, 63);
             this.buttonHuy.Name = "buttonHuy";
             this.buttonHuy.Size = new System.Drawing.Size(95, 37);
@@ -157,7 +157,7 @@
             // 
             // buttonLuu
             // 
-            this.buttonLuu.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonLuu.BackColor = System.Drawing.Color.Gray;
             this.buttonLuu.Location = new System.Drawing.Point(725, 5);
             this.buttonLuu.Name = "buttonLuu";
             this.buttonLuu.Size = new System.Drawing.Size(95, 37);
@@ -311,6 +311,7 @@
             // 
             // numericUpDownThanhTien
             // 
+            this.numericUpDownThanhTien.Enabled = false;
             this.numericUpDownThanhTien.Increment = new decimal(new int[] {
             10000,
             0,

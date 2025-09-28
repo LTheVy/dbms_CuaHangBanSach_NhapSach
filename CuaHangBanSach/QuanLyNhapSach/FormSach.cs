@@ -91,7 +91,7 @@ namespace QuanLyNhapSach
             decimal SLTonKho = 1,
             string AnhBia = "",
             DateTime NgayCapNhat = default(DateTime),
-            string TrangThai = "",
+            string TrangThai = "Có bán",
             string MoTa = ""
             )
         {
@@ -105,7 +105,7 @@ namespace QuanLyNhapSach
             numericUpDownSLTonKho.Value = SLTonKho;
             textBoxAnhBia.Text = AnhBia;
             dateTimePickerNgayCapNhat.Value = NgayCapNhat == default(DateTime) ? DateTime.Now : NgayCapNhat;
-            textBoxTrangThai.Text = TrangThai;
+            comboBoxTrangThai.Text = TrangThai;
             textBoxMoTa.Text = MoTa;
         }
 
@@ -150,7 +150,7 @@ namespace QuanLyNhapSach
                     numericUpDownSLTonKho.Value,
                     textBoxAnhBia.Text,
                     dateTimePickerNgayCapNhat.Value,
-                    textBoxTrangThai.Text,
+                    comboBoxTrangThai.Text,
                     textBoxMoTa.Text,
                     ref errMessage
                     ))
@@ -182,7 +182,7 @@ namespace QuanLyNhapSach
                     numericUpDownSLTonKho.Value,
                     textBoxAnhBia.Text,
                     dateTimePickerNgayCapNhat.Value,
-                    textBoxTrangThai.Text,
+                    comboBoxTrangThai.Text,
                     textBoxMoTa.Text,
                     ref errMessage
                     ))
